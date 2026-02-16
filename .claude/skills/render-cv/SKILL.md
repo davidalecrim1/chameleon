@@ -35,7 +35,7 @@ If no argument was provided:
 
 ### Step 2 — Render
 
-Use the Makefile `render` target, which copies the YAML to the project root, renders it, and removes the copy — ensuring output always lands in `./output/`:
+Use the Makefile `render` target, which delegates to `scripts/render.py` to handle rendering cross-platform — output always lands in `./output/`:
 
 ```
 make render FILE=<path>

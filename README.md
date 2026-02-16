@@ -64,7 +64,7 @@ This will:
 1. Fetch and analyze the job description
 2. Rewrite the summary, reorder experience highlights, and update `bold_keywords` to match the JD
 3. Save a tailored YAML to `templates/<company>_<role>_cv.yaml`
-4. Render it to PDF via `rendercv`
+4. Render it to PDF via `make render`
 5. Report the path to the generated PDF
 
 ### Step 3 — Re-render without re-tailoring
@@ -97,21 +97,3 @@ No experience is fabricated. The agents only reword and reorder what already exi
 ## Output
 
 Rendered PDFs land in `output/`. This directory is not committed.
-
-## Directory Structure
-
-```
-chameleon/
-├── .claude/
-│   ├── skills/
-│   │   ├── chameleon/SKILL.md      # /chameleon entrypoint
-│   │   ├── init-cv/SKILL.md        # /init-cv entrypoint
-│   │   └── render-cv/SKILL.md      # /render-cv entrypoint
-│   └── agents/
-│       ├── analyze-job-posting.md
-│       └── update-cv-with-job-posting.md
-├── templates/                       # Master and tailored YAMLs
-├── output/                 # Generated PDFs (not committed)
-├── Makefile
-└── CLAUDE.md
-```

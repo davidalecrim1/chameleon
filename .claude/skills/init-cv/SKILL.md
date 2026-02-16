@@ -125,7 +125,7 @@ Save the parsed or validated YAML to `templates/<name>_cv.yaml`, where `<name>` 
 
 ### Step 5 — Verify it renders
 
-Use the Makefile `render` target, which handles the copy/render/cleanup to ensure output lands in `./output/`:
+Use the Makefile `render` target, which delegates to `scripts/render.py` to handle rendering cross-platform — output always lands in `./output/`:
 
 ```
 make render FILE=templates/<name>_cv.yaml
