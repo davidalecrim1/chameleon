@@ -1,4 +1,4 @@
-rendercv_output/
+output/
 .venv/
 templates/*
 !templates/master_template.yaml

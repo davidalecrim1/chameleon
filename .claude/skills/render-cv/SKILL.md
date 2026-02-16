@@ -20,8 +20,8 @@ Re-render a CV YAML to PDF using RenderCV.
 
 Examples:
 - `/render-cv` — lists available YAMLs and asks which to render
-- `/render-cv templates/David_Alecrim_CV.yaml`
-- `/render-cv tailored/Acme_Corp_Senior_Engineer_CV.yaml`
+- `/render-cv templates/david_alecrim_cv.yaml`
+- `/render-cv templates/acme_corp_senior_engineer_cv.yaml`
 
 ## Workflow
 
@@ -30,12 +30,12 @@ Examples:
 If a path argument was provided, use it. If the file does not exist, report the error and stop.
 
 If no argument was provided:
-1. List all `*.yaml` files under `templates/` and `tailored/`
+1. List all `*.yaml` files under `templates/`
 2. Ask the user which one to render
 
 ### Step 2 — Render
 
-Use the Makefile `render` target, which copies the YAML to the project root, renders it, and removes the copy — ensuring output always lands in `./rendercv_output/`:
+Use the Makefile `render` target, which copies the YAML to the project root, renders it, and removes the copy — ensuring output always lands in `./output/`:
 
 ```
 make render FILE=<path>
@@ -43,6 +43,6 @@ make render FILE=<path>
 
 ### Step 3 — Report
 
-If the render succeeds, report the path to the generated PDF inside `rendercv_output/`.
+If the render succeeds, report the path to the generated PDF inside `output/`.
 
 If it fails, show the full error output so the user can act on it.

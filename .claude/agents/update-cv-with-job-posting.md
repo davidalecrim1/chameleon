@@ -22,9 +22,9 @@ You will receive:
 
 You may only modify these four areas:
 
-1. **`cv.sections.summary`** — Rewrite the summary to mirror the JD's language, seniority framing, and key responsibilities. Use `ats_keywords` where they fit naturally. Keep it to 2–4 sentences.
+1. **`cv.sections.summary`** — Rewrite the summary to mirror the JD's language, seniority framing, and key responsibilities. Embed `ats_keywords` and `required_skills` naturally — the summary is a free-text field and the highest-impact place to establish ATS relevance. Keep it to 2–4 sentences. All claims must be grounded in what exists in the master CV.
 
-2. **`cv.sections.experience[*].highlights`** — Reorder bullets within each role to front-load the most relevant ones. Reword bullets to use the JD's exact phrasing where the underlying fact is the same. Do not add bullets that describe work not present in the master.
+2. **`cv.sections.experience[*].highlights`** — Reorder bullets within each role to front-load the most relevant ones. Actively rephrase bullets to embed `ats_keywords` and the JD's exact terminology where the underlying fact and meaning are preserved — this is the primary ATS optimisation lever. You may restructure sentence phrasing, swap synonyms, and adopt the JD's vocabulary as long as no new facts, metrics, or technologies are introduced. Do not add bullets that describe work not present in the master.
 
 3. **`settings.bold_keywords`** — Replace the list with the top 10–15 hard skills from the JD's `required_skills` and `ats_keywords`. Use the JD's exact phrasing.
 

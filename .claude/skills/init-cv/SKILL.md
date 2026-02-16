@@ -68,6 +68,26 @@ cv:
 
 design:
   theme: classic
+  header:
+    connections:
+      phone_number_format: international
+  section_titles:
+    space_above: 0.8cm
+  entries:
+    date_and_location_width: 3cm
+    highlights:
+      space_above: 0.2cm
+  sections:
+    show_time_spans_in: []
+    space_between_regular_entries: 0.3em
+  templates:
+    experience_entry:
+      main_column: "**COMPANY**, POSITION — LOCATION\nSUMMARY\nHIGHLIGHTS\n"
+      date_and_location_column: "DATE"
+    education_entry:
+      main_column: "**INSTITUTION**, DEGREE in AREA — LOCATION\nSUMMARY\nHIGHLIGHTS"
+      degree_column: null
+      date_and_location_column: "DATE"
 
 settings:
   bold_keywords: []
@@ -92,23 +112,23 @@ Report any structural issues found. If the YAML is valid, proceed to Step 3.
 
 ### Step 3 — Confirm overwrite if needed
 
-Check whether `templates/<Name>_CV.yaml` already exists.
+Check whether `templates/<name>_cv.yaml` already exists (where `<name>` is the person's name, lowercased, spaces replaced by underscores).
 
 If it does, ask the user to confirm before overwriting:
-> `templates/<Name>_CV.yaml` already exists. Overwrite it? (yes/no)
+> `templates/<name>_cv.yaml` already exists. Overwrite it? (yes/no)
 
 Do not proceed until the user confirms.
 
 ### Step 4 — Save the master CV
 
-Save the parsed or validated YAML to `templates/<Name>_CV.yaml`, where `<Name>` is the person's name from the CV with spaces replaced by underscores (e.g., `templates/David_Alecrim_CV.yaml`).
+Save the parsed or validated YAML to `templates/<name>_cv.yaml`, where `<name>` is the person's name from the CV, lowercased, with spaces replaced by underscores (e.g., `templates/david_alecrim_cv.yaml`).
 
 ### Step 5 — Verify it renders
 
-Use the Makefile `render` target, which handles the copy/render/cleanup to ensure output lands in `./rendercv_output/`:
+Use the Makefile `render` target, which handles the copy/render/cleanup to ensure output lands in `./output/`:
 
 ```
-make render FILE=templates/<Name>_CV.yaml
+make render FILE=templates/<name>_cv.yaml
 ```
 
 If the render succeeds, report the path to the generated PDF and confirm setup is complete.
@@ -127,15 +147,15 @@ These rules prevent common rendering issues in the classic theme and must be app
 **Education entries:**
 - Keep `degree` short: use abbreviations like `BSc`, `MSc`, `Specialization`, `PhD`.
 - `area` holds the field of study (e.g., `Computer Science`, `Software Engineering`).
-- Always include the `design.templates.education_entry` block to prevent degree column overflow and hyphenation. The `degree_column: null` moves `DEGREE` inline into the main column:
+- Always include the `design.templates.education_entry` block to prevent degree column overflow and hyphenation. The `degree_column: null` moves `DEGREE` inline into the main column, and location is placed inline via the main_column template:
   ```yaml
   design:
     theme: classic
     templates:
       education_entry:
-        main_column: "**INSTITUTION**, DEGREE in AREA\nSUMMARY\nHIGHLIGHTS"
+        main_column: "**INSTITUTION**, DEGREE in AREA — LOCATION\nSUMMARY\nHIGHLIGHTS"
         degree_column: null
-        date_and_location_column: "LOCATION\nDATE"
+        date_and_location_column: "DATE"
   ```
 
 **Skills entries:**
@@ -153,11 +173,7 @@ These rules prevent common rendering issues in the classic theme and must be app
   ```
 - Do not group by issuer. Full cert names as proper nouns are clearer and avoid awkward comma-separated lists.
 
-**General:**
-- rendercv must be invoked as `.venv/bin/rendercv render <file>` in this project.
-
 ## Notes
 
-- This skill never modifies files under `tailored/`.
 - The output YAML under `templates/` becomes the source of truth for all future `/chameleon` runs.
 - If `rendercv` is not installed, tell the user to run `make install-tools` before retrying Step 5.

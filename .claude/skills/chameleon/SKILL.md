@@ -20,7 +20,7 @@ Tailor a master CV YAML to a specific job posting and render it to PDF.
 
 Examples:
 - `/chameleon https://example.com/jobs/123`
-- `/chameleon --cv John_CV "Senior Engineer at Acme Corp..."`
+- `/chameleon --cv john_doe "Senior Engineer at Acme Corp..."`
 
 ## Workflow
 
@@ -32,11 +32,11 @@ If the argument is a URL, fetch its content using WebFetch. If it is pasted text
 
 ### Step 2 — Resolve the master CV
 
-Scan the `templates/` directory for files matching the pattern `*_CV.yaml`.
+Scan the `templates/` directory for files matching the pattern `*_cv.yaml`.
 
-- If `--cv <name>` was passed, use `templates/<name>_CV.yaml`. If it does not exist, report the error and stop.
-- If exactly one `*_CV.yaml` exists in `templates/`, use it automatically.
-- If multiple `*_CV.yaml` files exist and no `--cv` argument was given, list them and ask the user which one to use before continuing.
+- If `--cv <name>` was passed, use `templates/<name>_cv.yaml`. If it does not exist, report the error and stop.
+- If exactly one `*_cv.yaml` exists in `templates/`, use it automatically.
+- If multiple `*_cv.yaml` files exist and no `--cv` argument was given, list them and ask the user which one to use before continuing.
 
 ### Step 3 — Analyze the job description
 
@@ -73,7 +73,7 @@ Where `<company>` and `<role>` come from the analysis output, lowercased, spaces
 
 ### Step 6 — Report to the user
 
-If the render succeeds, report the path to the generated PDF inside `rendercv_output/`.
+If the render succeeds, report the path to the generated PDF inside `output/`.
 
 If the render fails, show the full error output so the user can act on it. Do not silently swallow errors.
 

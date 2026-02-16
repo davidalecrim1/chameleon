@@ -22,18 +22,18 @@ chameleon/
 │       ├── analyze-job-posting.md         # Subagent — job analysis (isolated context)
 │       └── update-cv-with-job-posting.md  # Subagent — resume editor (isolated context)
 ├── templates/                    # Master and tailored CV YAMLs
-│   ├── <Name>_CV.yaml            # Master — source of truth, never mutated by tailor runs
+│   ├── <name>_cv.yaml             # Master — source of truth, never mutated by tailor runs
 │   └── <company>_<role>_cv.yaml   # Tailored — one per job application
-├── rendercv_output/              # RenderCV output — do not commit
+├── output/              # RenderCV output — do not commit
 └── CLAUDE.md                     # This file
 ```
 
 ## Technology Stack
 
 - **RenderCV** — YAML → PDF renderer (Typst backend, no LaTeX required)
-  - Install: `pip install rendercv`
-  - Render: `rendercv render <file>.yaml`
-  - Output: PDF, Markdown, HTML, PNG in `rendercv_output/`
+  - Install: `make install-tools`
+  - Render: `make render FILE=<file>.yaml`
+  - Output: PDF, Markdown, HTML, PNG in `output/`
 - **Claude Code skills** — `/chameleon` and `/init-cv` are user-invocable command skills
 - **Subagents** — `analyze-job-posting` and `update-cv-with-job-posting` run in isolated contexts
 
@@ -52,7 +52,7 @@ chameleon/
 
 1. **Fetch** the job posting URL or read pasted text
 2. **Resolve** which master CV to use from `templates/`:
-   - If `--cv` argument provided, use `templates/<name>_CV.yaml`
+   - If `--cv` argument provided, use `templates/<name>_cv.yaml`
    - If only one YAML exists in `templates/`, use it automatically
    - If multiple YAMLs exist in `templates/` and none specified, list them and ask the user to choose
 3. **Spawn** `analyze-job-posting` subagent with the raw JD text
