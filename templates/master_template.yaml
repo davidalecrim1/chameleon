@@ -1,0 +1,135 @@
+cv:
+  name: Marcus Chen
+  email: mchen.dev@protonmail.com
+  phone: "+1 (415) 782-9451"
+  location: Remote (GMT-8 to GMT+0)
+  social_networks:
+    - network: LinkedIn
+      username: marcuschen-eng
+    - network: GitHub
+      username: mchen-codes
+
+  sections:
+    summary:
+      - "Software engineer with 9 years of experience building scalable and reliable distributed systems. Passionate about fintech, cloud-native architecture, and machine learning infrastructure, with strong interest in distributed systems, data engineering, and real-time processing. Experienced with Python, Go, Kubernetes, and GCP to design resilient systems."
+      - "Brings strong distributed systems fundamentals with focus on performance, reliability, and security. Turns complex problems into production-ready systems and uses technology to drive growth, efficiency, and real business value."
+
+    experience:
+      - company: Stripe (via TechStaff)
+        position: Senior Software Engineer
+        location: Seattle, WA, United States
+        start_date: "2024-07"
+        end_date: present
+        summary: "Global payments infrastructure platform processing billions in transactions annually, serving millions of businesses worldwide with payment processing, fraud prevention, and financial tools."
+        highlights:
+          - "Reduced payment dispute resolution time by 75% (from 12 to 3 days average) by implementing an automated workflow system within the merchant services platform, providing operations teams with real-time visibility into transaction disputes and chargebacks."
+          - "Integrated the merchant platform with an LLM to generate automated, context-aware responses to common payment inquiry categories."
+
+      - company: Wells Fargo
+        position: Staff Software Engineer | Technical Architect
+        location: Charlotte, NC, United States
+        start_date: "2022-03"
+        end_date: "2024-07"
+        summary: "Major U.S. financial institution serving over 70 million customers with comprehensive banking, investment, and mortgage services across North America."
+        highlights:
+          - "Led the development of an internal knowledge management platform for 8,500 employees, reducing information retrieval time by 50% and increasing search accuracy by 38%."
+          - "Designed and maintained critical distributed systems with comprehensive observability, including custom dashboards and alerting, to ensure high availability, scalability, and reliability during peak transaction periods—enabling proactive incident detection and supporting millions of daily transactions."
+          - "Reduced GCP infrastructure costs by up to 75% through strategic resource optimization and workload rightsizing."
+
+      - company: Southwest Airlines
+        position: Solutions Architect
+        location: Dallas, TX, United States
+        start_date: "2021-06"
+        end_date: "2022-03"
+        summary: "Major U.S. carrier serving over 100 million passengers annually with domestic and international flights, known for customer service and operational efficiency."
+        highlights:
+          - "Architected and modernized distributed systems in the cloud, leading GCP migrations and designing scalable, resilient, and cost-efficient solutions."
+          - "Ensured production-grade reliability by applying SRE principles, implementing automated CI/CD pipelines, and leveraging microservices architectures for scalability, fault tolerance, and maintainability."
+
+      - company: Southwest Airlines
+        position: Product Owner
+        location: Dallas, TX, United States
+        start_date: "2017-07"
+        end_date: "2021-06"
+        highlights:
+          - "Led cloud migration and modernization initiatives for legacy booking systems, aligning technical execution with business goals to deliver scalable, cloud-native solutions."
+          - "Collaborated cross-functionally to translate complex requirements into actionable product backlogs—driving Agile delivery, refining solutions with engineers, and ensuring business value at every iteration."
+
+    education:
+      - institution: University of Washington
+        area: Software Engineering
+        degree: Specialization
+        location: Seattle, WA, United States
+        start_date: "2019-09"
+        end_date: "2020-08"
+
+      - institution: University of California, Berkeley
+        area: Computer Science
+        degree: BSc
+        location: Berkeley, CA, United States
+        start_date: "2015-08"
+        end_date: "2019-05"
+
+    certifications:
+      - label: "Google Cloud Professional Cloud Architect"
+        details: "Jun 2024"
+      - label: "Google Cloud Professional Data Engineer"
+        details: "Jan 2023"
+      - label: "Google Cloud Associate Cloud Engineer"
+        details: "Jul 2022"
+      - label: "Certified Kubernetes Application Developer (CKAD) – CNCF"
+        details: "Oct 2023"
+      - label: "Certified Kubernetes Administrator (CKA) – CNCF"
+        details: "Sep 2023"
+      - label: "AWS Certified Solutions Architect – Associate"
+        details: "Mar 2022"
+      - label: "AWS Certified Cloud Practitioner"
+        details: "Feb 2022"
+
+    languages:
+      - label: English
+        details: Native
+      - label: Mandarin
+        details: Conversational (B2)
+      - label: Spanish
+        details: Basic (A2)
+
+    skills:
+      - label: Languages
+        details: Python, Go, Java, TypeScript, Node.js
+      - label: Cloud & Infra
+        details: "GCP, AWS, Azure, Kubernetes, Terraform, Docker, GKE, Cloud SQL, BigQuery, Pub/Sub, Firestore"
+      - label: Distributed Systems
+        details: "Microservices, gRPC, GraphQL, REST API, Kafka, Redis"
+      - label: Databases
+        details: "PostgreSQL, MySQL, MongoDB, Firestore, NoSQL"
+      - label: Observability
+        details: "Datadog, Grafana, Prometheus"
+      - label: Practices
+        details: "SRE, DevOps, CI/CD, Agile, Scrum, Kanban"
+
+design:
+  theme: classic
+  header:
+    connections:
+      phone_number_format: international
+  section_titles:
+    space_above: 0.8cm
+  entries:
+    date_and_location_width: 3cm
+    highlights:
+      space_above: 0.2cm
+  sections:
+    show_time_spans_in: []
+    space_between_regular_entries: 0.3em
+  templates:
+    experience_entry:
+      main_column: "**COMPANY**, POSITION — LOCATION\nSUMMARY\nHIGHLIGHTS\n"
+      date_and_location_column: "DATE"
+    education_entry:
+      main_column: "**INSTITUTION**, DEGREE in AREA — LOCATION\nSUMMARY\nHIGHLIGHTS"
+      degree_column: null
+      date_and_location_column: "DATE"
+
+settings:
+  bold_keywords: []

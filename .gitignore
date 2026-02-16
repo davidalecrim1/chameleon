@@ -1,0 +1,4 @@
+rendercv_output/
+.venv/
+templates/*
+!templates/master_template.yaml
