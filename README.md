@@ -2,7 +2,13 @@
 
 Chameleon is a [Claude Code](https://claude.ai/claude-code) project that tailors a master resume YAML to a specific job posting and renders it to PDF using [RenderCV](https://docs.rendercv.com/).
 
-It uses two internal agents: one to analyze the job description and extract structured signal, and one to apply targeted edits to the resume YAML. The master file is never modified — each run produces a separate tailored YAML under `templates/`.
+Tailoring a resume for every application is the difference between getting a callback and getting ignored by ATS filters — but doing it manually takes 30–60 minutes per application and creates the temptation to embellish. Chameleon does it in seconds, and by design it cannot lie.
+
+- **ATS-optimized in seconds** — paste a job URL or description and get a tailored PDF, ready to submit
+- **Honest by construction** — edits are constrained to rewording and reordering what already exists in your master resume; no invented metrics, fabricated skills, or inflated titles
+- **Master resume stays untouched** — each run produces a separate, versioned YAML under `templates/`, one per application
+- **Accurate language matching** — a dedicated analysis agent extracts the exact phrasing from the job description and injects it into your resume, so your experience speaks the recruiter's language
+- **PDF output** — rendered via RenderCV (Typst backend) with a clean, professional layout
 
 ## Prerequisites
 
@@ -36,8 +42,6 @@ If you already have a RenderCV-compatible YAML:
 ```
 
 This parses the input, produces a RenderCV-compliant YAML at `templates/<your_name>_cv.yaml`, and does a test render to confirm everything works.
-
-> The file under `templates/` is your master — the source of truth for all future tailor runs. It is never modified by `/chameleon`.
 
 ### Step 2 — Tailor for a job posting
 
@@ -81,18 +85,6 @@ Or run it without arguments to pick from a list:
 /render-cv
 ```
 
-## What the agents edit
-
-| Field | Editable |
-|---|---|
-| `summary` | Yes |
-| `experience` highlights | Yes (reword and reorder only) |
-| `settings.bold_keywords` | Yes |
-| `skills` section order | Yes |
-| Company names, titles, dates | Never |
-| `education`, certifications | Never |
-
-No experience is fabricated. The agents only reword and reorder what already exists in the master YAML.
 
 ## Output
 

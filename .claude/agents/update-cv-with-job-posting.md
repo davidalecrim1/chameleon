@@ -75,6 +75,8 @@ Copy the `design` block verbatim from the master. The canonical structure is:
 ```yaml
 design:
   theme: classic
+  page:
+    show_footer: false
   header:
     connections:
       phone_number_format: international
