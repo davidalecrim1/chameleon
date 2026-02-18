@@ -70,6 +70,7 @@ design:
   theme: classic
   page:
     show_footer: false
+    show_top_note: false
   header:
     connections:
       phone_number_format: international
@@ -81,7 +82,7 @@ design:
       space_above: 0.2cm
   sections:
     show_time_spans_in: []
-    space_between_regular_entries: 0.3em
+    space_between_regular_entries: 0.4cm
   templates:
     experience_entry:
       main_column: "**COMPANY**, POSITION — LOCATION\nSUMMARY\nHIGHLIGHTS\n"
