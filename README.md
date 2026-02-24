@@ -42,16 +42,16 @@ Then proceed with the steps below.
 If you have an existing PDF resume, import it as the master YAML:
 
 ```
-/init-cv ~/Downloads/resume.pdf
+/init-cv ~/Downloads/david-alecrim.pdf
 ```
 
 If you already have a RenderCV-compatible YAML:
 
 ```
-/init-cv ~/Documents/my_resume.yaml
+/init-cv ~/Documents/david-alecrim.yaml
 ```
 
-This parses the input, produces a RenderCV-compliant YAML at `templates/<your_name>_cv.yaml`, and does a test render to confirm everything works.
+This parses the input, produces a RenderCV-compliant YAML at `templates/david_alecrim_cv.yaml`, and does a test render to confirm everything works.
 
 ### Step 3 — Tailor for a job posting
 
@@ -99,3 +99,10 @@ Or run it without arguments to pick from a list:
 ## Output
 
 Rendered PDFs land in `output/`. This directory is not committed.
+
+### Example
+
+The following is the master template CV rendered to PDF:
+
+![Master template — page 1](docs/example/master_template_1.png)
+![Master template — page 2](docs/example/master_template_2.png)
