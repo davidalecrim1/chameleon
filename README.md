@@ -18,7 +18,7 @@ Tailoring a resume for every application is the difference between getting a cal
 ## Setup
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/davidalecrim1/chameleon.git
 cd chameleon
 make install-tools
 ```
@@ -27,7 +27,17 @@ This creates a `.venv` and installs `rendercv` inside it.
 
 ## Workflow
 
-### Step 1 — Import your resume
+### Step 1 — Start Claude Code
+
+All commands (`/init-cv`, `/chameleon`, `/render-cv`) are Claude Code skills and must be run inside a Claude Code session:
+
+```bash
+claude
+```
+
+Then proceed with the steps below.
+
+### Step 2 — Import your resume
 
 If you have an existing PDF resume, import it as the master YAML:
 
@@ -43,7 +53,7 @@ If you already have a RenderCV-compatible YAML:
 
 This parses the input, produces a RenderCV-compliant YAML at `templates/<your_name>_cv.yaml`, and does a test render to confirm everything works.
 
-### Step 2 — Tailor for a job posting
+### Step 3 — Tailor for a job posting
 
 Provide a job URL or paste the job description directly:
 
@@ -71,7 +81,7 @@ This will:
 4. Render it to PDF via `make render`
 5. Report the path to the generated PDF
 
-### Step 3 — Re-render without re-tailoring
+### Step 4 — Re-render without re-tailoring
 
 To re-render any existing YAML (e.g., after a manual edit):
 
