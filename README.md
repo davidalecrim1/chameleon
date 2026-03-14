@@ -4,11 +4,14 @@ Chameleon is a [Claude Code](https://claude.ai/claude-code) project that tailors
 
 Tailoring a resume for every application is the difference between getting a callback and getting ignored by ATS filters — but doing it manually takes 30–60 minutes per application and creates the temptation to embellish. Chameleon does it in seconds, and by design it cannot lie.
 
-- **ATS-optimized in seconds** — paste a job URL or description and get a tailored PDF, ready to submit
-- **Honest by construction** — edits are constrained to rewording and reordering what already exists in your master resume; no invented metrics, fabricated skills, or inflated titles
-- **Master resume stays untouched** — each run produces a separate, versioned YAML under `templates/`, one per application
-- **Accurate language matching** — a dedicated analysis agent extracts the exact phrasing from the job description and injects it into your resume, so your experience speaks the recruiter's language
-- **PDF output** — rendered via RenderCV (Typst backend) with a clean, professional layout
+## Why use Chameleon?
+
+- ⚡ **ATS-optimized in seconds** — paste a job URL or description and get a tailored PDF, ready to submit
+- 🔒 **Honest by construction** — edits are constrained to rewording and reordering what already exists in your master resume; no invented metrics, fabricated skills, or inflated titles
+- 📁 **Master resume stays untouched** — each run produces a separate, versioned YAML under `templates/`, one per application
+- 🎯 **Accurate language matching** — a dedicated analysis agent extracts the exact phrasing from the job description and injects it into your resume, so your experience speaks the recruiter's language
+- 📄 **Clean PDF output** — rendered via RenderCV (Typst backend) with a professional layout, no LaTeX required
+- 🤖 **Fully automated** — two specialized Claude agents handle analysis and editing in isolated contexts, keeping the workflow fast and focused
 
 ## Prerequisites
 
@@ -106,3 +109,7 @@ The following is the master template CV rendered to PDF:
 
 ![Master template — page 1](docs/example/master_template_1.png)
 ![Master template — page 2](docs/example/master_template_2.png)
+
+## License
+
+MIT — see [LICENSE](LICENSE).
