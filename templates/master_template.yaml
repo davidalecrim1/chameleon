@@ -110,6 +110,8 @@ cv:
 
 design:
   theme: classic
+  typography:
+    line_spacing: 0.8em
   page:
     show_footer: false
   header:
