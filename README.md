@@ -1,6 +1,6 @@
 # Chameleon — Resume Tailor
 
-Chameleon is a [Claude Code](https://claude.ai/claude-code) project that tailors a master resume YAML to a specific job posting and renders it to PDF using [RenderCV](https://docs.rendercv.com/).
+Chameleon is a [Claude Code](https://claude.ai/claude-code) and [Codex](https://openai.com/codex/) project that tailors a master resume YAML to a specific job posting and renders it to PDF using [RenderCV](https://docs.rendercv.com/).
 
 Tailoring a resume for every application is the difference between getting a callback and getting ignored by ATS filters — but doing it manually takes 30–60 minutes per application and creates the temptation to embellish. Chameleon does it in seconds, and by design it cannot lie.
 
@@ -15,7 +15,7 @@ Tailoring a resume for every application is the difference between getting a cal
 
 ## Prerequisites
 
-- [Claude Code](https://claude.ai/claude-code) installed and authenticated
+- [Claude Code](https://claude.ai/claude-code) or [Codex](https://openai.com/codex/) installed and configured
 - Python 3.10+
 
 ## Setup
@@ -30,12 +30,18 @@ This creates a `.venv` and installs `rendercv` inside it.
 
 ## Workflow
 
-### Step 1 — Start Claude Code
+### Step 1 — Start your agent
 
-All commands (`/init-cv`, `/chameleon`, `/render-cv`) are Claude Code skills and must be run inside a Claude Code session:
+All commands (`/init-cv`, `/chameleon`, `/render-cv`) are available in both Claude Code and Codex:
 
+Claude:
 ```bash
 claude
+```
+
+Codex:
+```bash
+codex
 ```
 
 Then proceed with the steps below.
@@ -97,7 +103,6 @@ Or run it without arguments to pick from a list:
 ```
 /render-cv
 ```
-
 
 ## Output
 
