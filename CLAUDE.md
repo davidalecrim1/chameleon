@@ -48,6 +48,15 @@ chameleon/
 
 **`analyze-job-posting` and `update-cv-with-job-posting`** are subagents: spawned by the skill, run in isolation, return a summary. Isolation keeps large intermediate context (raw HTML, full YAML processing) out of the main thread.
 
+## Codex Delegation
+
+For Codex, keep the same two-agent split. When the user explicitly wants delegation or subagents, use `spawn_agent` so the raw JD text and YAML editing work stay out of the main thread.
+
+- Reuse `.claude/agents/analyze-job-posting.md` as the prompt boundary for the analysis subagent. It should receive only the raw JD text and return the structured analysis fields documented below.
+- Reuse `.claude/agents/update-cv-with-job-posting.md` as the prompt boundary for the editing subagent. It should receive only the structured analysis plus the resolved master YAML path.
+- Do the orchestration, CV selection, rendering, and user-facing reporting in the main thread.
+- Do not delegate if the user is only asking questions about the repo or workflow. Delegate when performing an actual tailoring run and isolation helps control context size.
+
 ## Skill Workflow (`/chameleon`)
 
 1. **Fetch** the job posting URL or read pasted text

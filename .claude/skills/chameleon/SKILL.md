@@ -35,8 +35,7 @@ If the argument is a URL, fetch its content using WebFetch. If it is pasted text
 Scan the `templates/` directory for files matching the pattern `*_cv.yaml`.
 
 - If `--cv <name>` was passed, use `templates/<name>_cv.yaml`. If it does not exist, report the error and stop.
-- If exactly one `*_cv.yaml` exists in `templates/`, use it automatically.
-- If multiple `*_cv.yaml` files exist and no `--cv` argument was given, list them and ask the user which one to use before continuing.
+- In all other cases — whether one file exists or many — list all found `*_cv.yaml` files and ask the user which one to use before continuing. Never auto-select silently.
 
 ### Step 3 — Analyze the job description
 
