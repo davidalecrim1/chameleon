@@ -49,6 +49,8 @@ The agent will return a structured object with these fields:
 - `preferred_skills`
 - `responsibilities`
 - `ats_keywords`
+- `positioning_signals`
+- `summary_angle`
 
 ### Step 4 — Tailor the CV
 

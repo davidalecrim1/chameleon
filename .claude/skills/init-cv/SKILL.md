@@ -91,6 +91,9 @@ design:
       main_column: "**INSTITUTION**, DEGREE in AREA — LOCATION\nSUMMARY\nHIGHLIGHTS"
       degree_column: null
       date_and_location_column: "DATE"
+    normal_entry:
+      main_column: "**NAME**\nSUMMARY\nHIGHLIGHTS\n"
+      date_and_location_column: ""
 
 settings:
   bold_keywords: []
@@ -99,6 +102,7 @@ settings:
 Follow RenderCV entry type rules:
 - Use `company` field for experience entries (ExperienceEntry)
 - Use `institution` field for education entries (EducationEntry)
+- Use `name` field for project entries (NormalEntry)
 - Use `label` field for one-line entries (OneLineEntry)
 - Do not mix entry types within a section
 
@@ -159,6 +163,19 @@ These rules prevent common rendering issues in the classic theme and must be app
         main_column: "**INSTITUTION**, DEGREE in AREA — LOCATION\nSUMMARY\nHIGHLIGHTS"
         degree_column: null
         date_and_location_column: "DATE"
+  ```
+
+**Project entries:**
+- Use plain text for `name` values. Do not use Markdown links in project names.
+- Do not include `start_date`, `end_date`, or `date` fields. Project sections should not show a time window.
+- Include the `design.templates.normal_entry` block:
+  ```yaml
+  design:
+    theme: classic
+    templates:
+      normal_entry:
+        main_column: "**NAME**\nSUMMARY\nHIGHLIGHTS\n"
+        date_and_location_column: ""
   ```
 
 **Skills entries:**

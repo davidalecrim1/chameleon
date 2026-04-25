@@ -134,6 +134,9 @@ design:
       main_column: "**INSTITUTION**, DEGREE in AREA — LOCATION\nSUMMARY\nHIGHLIGHTS"
       degree_column: null
       date_and_location_column: "DATE"
+    normal_entry:
+      main_column: "**NAME**\nSUMMARY\nHIGHLIGHTS\n"
+      date_and_location_column: ""
 
 settings:
   bold_keywords: []

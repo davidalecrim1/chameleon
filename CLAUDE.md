@@ -97,8 +97,10 @@ These rules are absolute and must never be violated:
 - Entry types are auto-detected by their fields:
   - `company` field → ExperienceEntry
   - `institution` field → EducationEntry
+  - `name` field → NormalEntry
   - `label` field → OneLineEntry
 - One entry type per section — do not mix types
+- Project entries must use plain text names, not Markdown links, and must not include `start_date`, `end_date`, or `date`
 - Markdown is supported inside `highlights` bullets: `**bold**`, `*italic*`, `[links](url)`
 - `settings.bold_keywords` is a list of strings auto-bolded throughout the PDF — update this on every tailor run to reflect the JD's hard skills
 
@@ -109,6 +111,7 @@ These rules are absolute and must never be violated:
 Runs in an isolated context. Responsible solely for extracting structured signal from a job description. No file I/O. Output:
 - `required_skills`, `preferred_skills`
 - `responsibilities`, `ats_keywords`
+- `positioning_signals`, `summary_angle`
 - `seniority`, `role_title`, `company_name`
 
 ### `update-cv-with-job-posting`
@@ -116,7 +119,13 @@ Runs in an isolated context. Responsible solely for extracting structured signal
 Runs in an isolated context. Receives job analysis + master YAML path. Reads master YAML, writes tailored YAML to `templates/<company>_<role>_cv.yaml`, and reports the saved path. Does not render — the `/chameleon` skill handles rendering.
 
 Only edits: `summary`, `experience` highlights, `settings.bold_keywords`, `skills` section order.
-Never touches: `education`, `languages`, certifications, publications, or any other fixed sections.
+Never touches: `projects`, `education`, `languages`, certifications, publications, or any other fixed sections.
+
+Summary guidance for tailor runs:
+- The summary must sell the candidate's fit for the role, not just mirror the JD's stack.
+- Lead with the strongest positioning signal supported by the master CV, such as product mindset, customer impact, ownership, or cross-functional fluency.
+- Use only the most important JD keywords in the summary; keep broader technology coverage in the skills section.
+- The first sentence should make it easy for a recruiter or hiring manager to understand why this candidate is worth a closer look.
 
 ## Reference Documentation
 

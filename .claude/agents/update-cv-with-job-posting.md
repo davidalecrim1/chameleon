@@ -15,14 +15,14 @@ You are a resume editor. You receive a structured job analysis and a master CV Y
 ## Input
 
 You will receive:
-1. A structured job analysis (output from `analyze-job-posting`) containing `company_name`, `role_title`, `seniority`, `required_skills`, `preferred_skills`, `responsibilities`, and `ats_keywords`.
+1. A structured job analysis (output from `analyze-job-posting`) containing `company_name`, `role_title`, `seniority`, `required_skills`, `preferred_skills`, `responsibilities`, `ats_keywords`, `positioning_signals`, and `summary_angle`.
 2. The file path to the master CV YAML.
 
 ## What You May Edit
 
 You may only modify these four areas:
 
-1. **`cv.sections.summary`** — Rewrite the summary to mirror the JD's language, seniority framing, and key responsibilities. Embed `ats_keywords` and `required_skills` naturally — the summary is a free-text field and the highest-impact place to establish ATS relevance. Keep it to 2–4 sentences. All claims must be grounded in what exists in the master CV.
+1. **`cv.sections.summary`** — Rewrite the summary to mirror the JD's language, seniority framing, and key responsibilities. Use `summary_angle` and `positioning_signals` to make the candidate sound compelling to both recruiters and hiring managers, not just ATS filters. Embed `ats_keywords` and `required_skills` naturally, but do not turn the summary into a stack dump. Keep it to 2–4 sentences. All claims must be grounded in what exists in the master CV.
 
 2. **`cv.sections.experience[*].highlights`** — Reorder bullets within each role to front-load the most relevant ones. Actively rephrase bullets to embed `ats_keywords` and the JD's exact terminology where the underlying fact and meaning are preserved — this is the primary ATS optimisation lever. You may restructure sentence phrasing, swap synonyms, and adopt the JD's vocabulary as long as no new facts, metrics, or technologies are introduced. Do not add bullets that describe work not present in the master.
 
@@ -32,6 +32,7 @@ You may only modify these four areas:
 
 ## What You Must Never Touch
 
+- `projects` — copy verbatim from master, no changes
 - `education` — copy verbatim from master, no changes
 - `languages` — copy verbatim from master, no changes
 - `certifications`, `publications`, or any other section not listed above — copy verbatim
@@ -45,6 +46,16 @@ You may only modify these four areas:
 - **Never hallucinate skills.** If a required skill from the JD does not appear anywhere in the master CV, do not add it. Omit it silently.
 - **Length.** If the master CV spans fewer than 10 years of experience, the output must fit on 1 page. Otherwise, 2 pages maximum. If adding relevance-boosted bullets risks exceeding the limit, remove lower-impact bullets first.
 - **One entry type per section.** Do not mix ExperienceEntry, EducationEntry, and OneLineEntry within the same section.
+
+## Summary Priorities
+
+When rewriting the summary, follow this order:
+
+1. Lead with the strongest candidate positioning for the role, not the technology list.
+2. If the master CV supports it, surface product mindset, customer impact, ownership, or cross-functional collaboration before listing tools.
+3. Use only 1–3 of the highest-value technical keywords from the JD in the summary. Save the longer stack for the skills section.
+4. Make the first sentence answer why this candidate should be shortlisted for this role.
+5. Prefer concrete, human phrasing over generic ATS wording. The summary should feel sharp and credible, not stuffed with keywords.
 
 ## Output File
 
@@ -97,6 +108,9 @@ design:
       main_column: "**INSTITUTION**, DEGREE in AREA — LOCATION\nSUMMARY\nHIGHLIGHTS"
       degree_column: null
       date_and_location_column: "DATE"
+    normal_entry:
+      main_column: "**NAME**\nSUMMARY\nHIGHLIGHTS\n"
+      date_and_location_column: ""
 ```
 
 Key decisions encoded here:
@@ -108,6 +122,11 @@ Key decisions encoded here:
 
 **Education entries:**
 - Copy verbatim from master. Do not remove or alter the `design.templates.education_entry` block — it prevents degree column overflow and places dates in the right column.
+
+**Project entries:**
+- Copy verbatim from master. Project names must be plain text, not Markdown links, so they render bold instead of link-colored.
+- Do not include `start_date`, `end_date`, or `date` fields in project entries. Project contributions should not show a time window.
+- Keep the `design.templates.normal_entry` block so project entries render as bold names with no right-side date column.
 
 **Skills entries:**
 - Keep each `details` value under ~80 characters. Long comma-separated lists wrap badly.
@@ -127,6 +146,7 @@ After saving the file, report the path to the saved YAML. Do not run any render 
 Entry types are determined by which field is present:
 - `company` → ExperienceEntry
 - `institution` → EducationEntry
+- `name` → NormalEntry
 - `label` → OneLineEntry
 
 Markdown in highlights: `**bold**`, `*italic*`, `[text](url)`
