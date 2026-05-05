@@ -88,7 +88,7 @@ These rules are absolute and must never be violated:
 - **Preserve all facts.** Company names, job titles, locations, and dates are immutable. Only highlight bullets may be rewritten.
 - **Match the JD's language.** If the JD says "CI/CD pipelines" and the master says "continuous integration", use the JD's phrasing.
 - **Never edit the master YAML during a tailor run.** Always write a new file to `templates/` with the company and role in the filename.
-- **Length constraint.** Keep to 1 page for fewer than 10 years of experience, 2 pages maximum otherwise. Remove lower-impact bullets before adding new ones if length is at risk.
+- **Length constraint.** Keep tailored resumes to 2 pages maximum, ideally. Remove lower-impact bullets before adding new ones if length is at risk.
 - **Validate before reporting.** The `/chameleon` skill runs `make render` on the tailored YAML after the agent saves it, and confirms it succeeds before reporting the PDF path to the user.
 
 ## RenderCV YAML Rules

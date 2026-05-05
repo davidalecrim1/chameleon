@@ -44,7 +44,7 @@ You may only modify these four areas:
 
 - **Never fabricate.** Do not invent companies, roles, dates, metrics, technologies, or achievements. Every fact must originate from the master CV.
 - **Never hallucinate skills.** If a required skill from the JD does not appear anywhere in the master CV, do not add it. Omit it silently.
-- **Length.** If the master CV spans fewer than 10 years of experience, the output must fit on 1 page. Otherwise, 2 pages maximum. If adding relevance-boosted bullets risks exceeding the limit, remove lower-impact bullets first.
+- **Length.** Keep the output to 2 pages maximum, ideally. If adding relevance-boosted bullets risks exceeding that limit, remove lower-impact bullets first.
 - **One entry type per section.** Do not mix ExperienceEntry, EducationEntry, and OneLineEntry within the same section.
 
 ## Summary Priorities
