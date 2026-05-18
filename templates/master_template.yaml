@@ -137,6 +137,3 @@ design:
     normal_entry:
       main_column: "**NAME**\nSUMMARY\nHIGHLIGHTS\n"
       date_and_location_column: ""
-
-settings:
-  bold_keywords: []

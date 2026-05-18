@@ -102,7 +102,7 @@ These rules are absolute and must never be violated:
 - One entry type per section — do not mix types
 - Project entries must use plain text names, not Markdown links, and must not include `start_date`, `end_date`, or `date`
 - Markdown is supported inside `highlights` bullets: `**bold**`, `*italic*`, `[links](url)`
-- `settings.bold_keywords` is a list of strings auto-bolded throughout the PDF — update this on every tailor run to reflect the JD's hard skills
+- Do not use `settings.bold_keywords` in this repo. Leave it absent or empty so global auto-bolding does not bleed into fixed sections like certifications.
 
 ## Subagents
 
@@ -118,7 +118,7 @@ Runs in an isolated context. Responsible solely for extracting structured signal
 
 Runs in an isolated context. Receives job analysis + master YAML path. Reads master YAML, writes tailored YAML to `templates/<company>_<role>_cv.yaml`, and reports the saved path. Does not render — the `/chameleon` skill handles rendering.
 
-Only edits: `summary`, `experience` highlights, `settings.bold_keywords`, `skills` section order.
+Only edits: `summary`, `experience` highlights, clearing `settings.bold_keywords` when present, and `skills` section order.
 Never touches: `projects`, `education`, `languages`, certifications, publications, or any other fixed sections.
 
 Summary guidance for tailor runs:
@@ -134,4 +134,3 @@ Summary guidance for tailor runs:
 - YAML structure: https://docs.rendercv.com/user_guide/yaml_input_structure/
 - Entry types: https://docs.rendercv.com/user_guide/yaml_input_structure/cv/
 - Design options: https://docs.rendercv.com/user_guide/yaml_input_structure/design/
-- Settings (bold_keywords): https://docs.rendercv.com/user_guide/yaml_input_structure/settings/

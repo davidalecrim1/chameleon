@@ -94,9 +94,6 @@ design:
     normal_entry:
       main_column: "**NAME**\nSUMMARY\nHIGHLIGHTS\n"
       date_and_location_column: ""
-
-settings:
-  bold_keywords: []
 ```
 
 Follow RenderCV entry type rules:
@@ -114,6 +111,7 @@ Read the file and validate it conforms to RenderCV structure. Check that:
 - `cv.name` is present
 - Each section uses a consistent entry type
 - Dates follow YYYY-MM or YYYY format
+- If `settings.bold_keywords` exists, remove it or set it to an empty list before saving. This repo does not use global keyword auto-bolding because it affects fixed sections like certifications.
 
 Report any structural issues found. If the YAML is valid, proceed to Step 3.
 

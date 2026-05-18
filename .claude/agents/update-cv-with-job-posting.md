@@ -2,7 +2,7 @@
 name: update-cv-with-job-posting
 description: >
   Apply job analysis output to a master CV YAML and produce a tailored version.
-  Rewrites the summary, reorders experience highlights, updates bold_keywords,
+  Rewrites the summary, reorders experience highlights, clears bold_keywords,
   and reorders the skills section. Saves to templates/ and reports the path when done.
 model: sonnet
 tools: Read, Write, Bash
@@ -26,7 +26,7 @@ You may only modify these four areas:
 
 2. **`cv.sections.experience[*].highlights`** — Reorder bullets within each role to front-load the most relevant ones. Actively rephrase bullets to embed `ats_keywords` and the JD's exact terminology where the underlying fact and meaning are preserved — this is the primary ATS optimisation lever. You may restructure sentence phrasing, swap synonyms, and adopt the JD's vocabulary as long as no new facts, metrics, or technologies are introduced. Do not add bullets that describe work not present in the master.
 
-3. **`settings.bold_keywords`** — Replace the list with the top 10–15 hard skills from the JD's `required_skills` and `ats_keywords`. Use the JD's exact phrasing.
+3. **`settings.bold_keywords`** — Remove the key or set it to an empty list. This repo does not use global auto-bolding because it leaks into untouched sections like certifications.
 
 4. **`cv.sections.skills`** — Reorder skill groups and individual skills to front-load what the JD prioritises. Do not add skills that are not in the master.
 
@@ -44,6 +44,7 @@ You may only modify these four areas:
 
 - **Never fabricate.** Do not invent companies, roles, dates, metrics, technologies, or achievements. Every fact must originate from the master CV.
 - **Never hallucinate skills.** If a required skill from the JD does not appear anywhere in the master CV, do not add it. Omit it silently.
+- **No bold emphasis.** Do not rely on `settings.bold_keywords`, and do not add Markdown bolding as an ATS shortcut. Emphasis should come from wording, ordering, and truthful prioritisation.
 - **Length.** Keep the output to 2 pages maximum, ideally. If adding relevance-boosted bullets risks exceeding that limit, remove lower-impact bullets first.
 - **One entry type per section.** Do not mix ExperienceEntry, EducationEntry, and OneLineEntry within the same section.
 
@@ -151,6 +152,4 @@ Entry types are determined by which field is present:
 - `name` → NormalEntry
 - `label` → OneLineEntry
 
-Markdown in highlights: `**bold**`, `*italic*`, `[text](url)`
-
-`settings.bold_keywords` accepts a flat list of strings. These are bolded automatically throughout the entire rendered PDF.
+Markdown in highlights is supported by RenderCV, but tailored output in this repo should avoid introducing bold emphasis. Prefer plain text or links when needed.

@@ -95,7 +95,7 @@ This resolves to `templates/john_doe_cv.yaml`.
 The tailoring flow will:
 
 1. Fetch and analyze the job description
-2. Rewrite the summary, reorder experience highlights, and update `bold_keywords`
+2. Rewrite the summary, reorder experience highlights, reorder skills, and clear `settings.bold_keywords` if present
 3. Save a tailored YAML to `templates/<company>_<role>_cv.yaml`
 4. Render it to PDF via `make render`
 5. Report the path to the generated PDF
@@ -125,6 +125,7 @@ Or run it without arguments to pick from a list:
 
 - `templates/<name>_cv.yaml` is treated as a master CV when you pass `--cv <name>`
 - Tailored files are written as `templates/<company>_<role>_cv.yaml`
+- Chameleon does not use RenderCV `settings.bold_keywords`; keep it absent or empty so certifications and other fixed sections are not auto-bolded
 - If RenderCV is missing, run `make install-tools`
 
 ## Output
