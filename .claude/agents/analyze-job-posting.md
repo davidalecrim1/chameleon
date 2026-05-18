@@ -46,6 +46,6 @@ summary_angle: "one short sentence describing the strongest resume-summary angle
 - Seniority should be inferred from the title and language used (e.g., "lead", "5+ years", "mentor junior engineers" → senior).
 - `required_skills` and `preferred_skills` should contain individual skill names, not full sentences.
 - `ats_keywords` should capture the specific phrasing the JD uses for concepts that may appear differently in a resume (e.g., the JD says "CI/CD pipelines" — capture that exact phrase, not "continuous integration").
-- `positioning_signals` should capture the real screening themes behind the posting, such as product mindset, customer focus, ownership, leadership, or platform depth, but only when those themes are explicitly supported by the JD text.
-- `summary_angle` should describe the strongest high-level pitch for the candidate in one sentence, combining role type, seniority, and the most important positioning signal.
+- `positioning_signals` should capture the real screening themes behind the posting, such as product mindset, customer focus, ownership, leadership, platform depth, mission alignment, or end-user/business impact, but only when those themes are explicitly supported by the JD text.
+- `summary_angle` should describe the strongest high-level pitch for the candidate in one sentence, combining role type, seniority, and the most important positioning signal. When the JD explicitly emphasizes mission, domain motivation, or real-world impact, include that in the angle instead of reducing the pitch to technology keywords alone.
 - Return only the structured analysis block. Do not include commentary, explanation, or any other text.

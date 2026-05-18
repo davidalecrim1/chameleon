@@ -126,6 +126,8 @@ Summary guidance for tailor runs:
 - Lead with the strongest positioning signal supported by the master CV, such as product mindset, customer impact, ownership, or cross-functional fluency.
 - Use only the most important JD keywords in the summary; keep broader technology coverage in the skills section.
 - The first sentence should make it easy for a recruiter or hiring manager to understand why this candidate is worth a closer look.
+- Connect expertise to customer, business, or real-world impact when the master CV supports that framing.
+- If the master CV and JD support it, surface grounded motivation for the problem space, product, or mission instead of writing a purely technology-led summary.
 
 ## Reference Documentation
 
