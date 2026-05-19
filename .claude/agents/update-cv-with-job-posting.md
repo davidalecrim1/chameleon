@@ -89,6 +89,12 @@ Copy the `design` block verbatim from the master. The canonical structure is:
 ```yaml
 design:
   theme: classic
+  typography:
+    line_spacing: 0.8em
+    font_size:
+      body: 9.5pt
+      headline: 9.5pt
+      connections: 9.5pt
   page:
     show_footer: false
   header:
@@ -117,6 +123,7 @@ design:
 ```
 
 Key decisions encoded here:
+- `typography.font_size.body/headline/connections: 9.5pt` — slightly tighter text sizing that helps dense resumes fit in two pages without changing content structure
 - `date_and_location_width: 3cm` — dates in slim right column, location stays inline in the main column
 - `space_above: 0.8cm` on section titles — visible breathing room between sections
 - `space_between_regular_entries: 0.3em` — tight gap matching text-based entries (certifications, languages), keeping education compact

@@ -112,6 +112,10 @@ design:
   theme: classic
   typography:
     line_spacing: 0.8em
+    font_size:
+      body: 9.5pt
+      headline: 9.5pt
+      connections: 9.5pt
   page:
     show_footer: false
   header:

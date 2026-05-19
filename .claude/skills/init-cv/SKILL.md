@@ -68,6 +68,12 @@ cv:
 
 design:
   theme: classic
+  typography:
+    line_spacing: 0.8em
+    font_size:
+      body: 9.5pt
+      headline: 9.5pt
+      connections: 9.5pt
   page:
     show_footer: false
     show_top_note: false
@@ -161,6 +167,19 @@ These rules prevent common rendering issues in the classic theme and must be app
         main_column: "**INSTITUTION**, DEGREE in AREA — LOCATION\nSUMMARY\nHIGHLIGHTS"
         degree_column: null
         date_and_location_column: "DATE"
+  ```
+
+**Typography defaults:**
+- Keep the default compact typography block in this repo unless the user asks otherwise:
+  ```yaml
+  design:
+    theme: classic
+    typography:
+      line_spacing: 0.8em
+      font_size:
+        body: 9.5pt
+        headline: 9.5pt
+        connections: 9.5pt
   ```
 
 **Project entries:**
