@@ -108,7 +108,7 @@ design:
       space_above: 0.2cm
   sections:
     show_time_spans_in: []
-    space_between_regular_entries: 0.3em
+    space_between_regular_entries: 0.2cm
   templates:
     experience_entry:
       main_column: "**COMPANY**, POSITION — LOCATION\nSUMMARY\nHIGHLIGHTS\n"
@@ -126,7 +126,7 @@ Key decisions encoded here:
 - `typography.font_size.body/headline/connections: 9.5pt` — slightly tighter text sizing that helps dense resumes fit in two pages without changing content structure
 - `date_and_location_width: 3cm` — dates in slim right column, location stays inline in the main column
 - `space_above: 0.8cm` on section titles — visible breathing room between sections
-- `space_between_regular_entries: 0.3em` — tight gap matching text-based entries (certifications, languages), keeping education compact
+- `space_between_regular_entries: 0.2cm` — tighter gap between regular entries, especially experience roles, while keeping dense resumes readable
 - Trailing `\n` in `experience_entry.main_column` — adds a small gap after each experience block without affecting education
 - `show_time_spans_in: []` — no duration lines anywhere
 

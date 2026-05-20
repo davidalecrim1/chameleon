@@ -88,7 +88,7 @@ design:
       space_above: 0.2cm
   sections:
     show_time_spans_in: []
-    space_between_regular_entries: 0.4cm
+    space_between_regular_entries: 0.2cm
   templates:
     experience_entry:
       main_column: "**COMPANY**, POSITION — LOCATION\nSUMMARY\nHIGHLIGHTS\n"
@@ -180,6 +180,9 @@ These rules prevent common rendering issues in the classic theme and must be app
         body: 9.5pt
         headline: 9.5pt
         connections: 9.5pt
+    sections:
+      show_time_spans_in: []
+      space_between_regular_entries: 0.2cm
   ```
 
 **Project entries:**

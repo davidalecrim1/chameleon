@@ -69,6 +69,10 @@ The tailored summary must not read like a raw technology dump.
 - If the master CV and JD support it, surface genuine motivation for the problem space, product, or mission in concrete language rather than generic enthusiasm.
 - Keep the broader stack coverage in the skills section instead of forcing it into the summary.
 
+### Layout Defaults
+
+Tailored resumes should preserve the master CV's `design` block unchanged. In this repo, the compact classic-theme defaults include `design.typography.line_spacing: 0.8em`, `design.typography.font_size.body/headline/connections: 9.5pt`, and `design.sections.space_between_regular_entries: 0.2cm`.
+
 ### Step 5 — Render the tailored CV
 
 This step is mandatory and must always run after Step 4 completes, even if the agent did not report errors.

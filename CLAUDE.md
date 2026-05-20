@@ -103,7 +103,7 @@ These rules are absolute and must never be violated:
 - Project entries must use plain text names, not Markdown links, and must not include `start_date`, `end_date`, or `date`
 - Markdown is supported inside `highlights` bullets: `**bold**`, `*italic*`, `[links](url)`
 - Do not use `settings.bold_keywords` in this repo. Leave it absent or empty so global auto-bolding does not bleed into fixed sections like certifications.
-- Default classic-theme typography in this repo uses `design.typography.line_spacing: 0.8em` plus `design.typography.font_size.body/headline/connections: 9.5pt` to keep dense resumes closer to two pages without changing section order.
+- Default classic-theme typography in this repo uses `design.typography.line_spacing: 0.8em`, `design.typography.font_size.body/headline/connections: 9.5pt`, and `design.sections.space_between_regular_entries: 0.2cm` to keep dense resumes closer to two pages without changing section order.
 
 ## Subagents
 
