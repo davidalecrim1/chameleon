@@ -67,6 +67,7 @@ The tailored summary must not read like a raw technology dump.
 - Lead with why the candidate should be shortlisted for the role, not with a long stack list.
 - Show relevant expertise, but connect it to customer, business, or real-world impact whenever the master CV supports that framing.
 - If the master CV and JD support it, surface genuine motivation for the problem space, product, or mission in concrete language rather than generic enthusiasm.
+- Keep the summary to at most 2 paragraphs.
 - Keep the broader stack coverage in the skills section instead of forcing it into the summary.
 
 ### Layout Defaults
@@ -80,10 +81,10 @@ This step is mandatory and must always run after Step 4 completes, even if the a
 Use the Makefile `render` target directly:
 
 ```
-make render FILE=templates/<company>_<role>_cv.yaml
+make render FILE=templates/<username>_<company>_<role>_cv.yaml
 ```
 
-Where `<company>` and `<role>` come from the analysis output, lowercased, spaces replaced by underscores, special characters removed.
+Where `<username>` comes from the selected master CV filename with the trailing `_cv` removed, and `<company>` and `<role>` come from the analysis output. Lowercase all parts, replace spaces with underscores, and remove special characters.
 
 ### Step 6 — Report to the user
 

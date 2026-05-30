@@ -22,7 +22,7 @@ You will receive:
 
 You may only modify these four areas:
 
-1. **`cv.sections.summary`** — Rewrite the summary to mirror the JD's language, seniority framing, and key responsibilities. Use `summary_angle` and `positioning_signals` to make the candidate sound compelling to both recruiters and hiring managers, not just ATS filters. Embed `ats_keywords` and `required_skills` naturally, but do not turn the summary into a stack dump. Show how the candidate's expertise translates into customer, business, or real-world impact when the master CV supports it, and surface grounded motivation for the domain or mission when it is clearly supported by the source material. Keep it to 2–4 sentences. All claims must be grounded in what exists in the master CV.
+1. **`cv.sections.summary`** — Rewrite the summary to mirror the JD's language, seniority framing, and key responsibilities. Use `summary_angle` and `positioning_signals` to make the candidate sound compelling to both recruiters and hiring managers, not just ATS filters. Embed `ats_keywords` and `required_skills` naturally, but do not turn the summary into a stack dump. Show how the candidate's expertise translates into customer, business, or real-world impact when the master CV supports it, and surface grounded motivation for the domain or mission when it is clearly supported by the source material. Keep it to at most 2 paragraphs. All claims must be grounded in what exists in the master CV.
 
 2. **`cv.sections.experience[*].highlights`** — Reorder bullets within each role to front-load the most relevant ones. Actively rephrase bullets to embed `ats_keywords` and the JD's exact terminology where the underlying fact and meaning are preserved — this is the primary ATS optimisation lever. You may restructure sentence phrasing, swap synonyms, and adopt the JD's vocabulary as long as no new facts, metrics, or technologies are introduced. Do not add bullets that describe work not present in the master.
 
@@ -59,18 +59,19 @@ When rewriting the summary, follow this order:
 5. Tie technical strengths to business, customer, operational, or broader real-world outcomes whenever the master CV supports that connection.
 6. If the master CV and JD support it, show genuine interest in the company's mission, product space, or problem domain in concrete language rather than generic passion words.
 7. Prefer concrete, human phrasing over generic ATS wording. The summary should feel sharp and credible, not stuffed with keywords.
+8. Never write more than 2 summary paragraphs.
 
 ## Output File
 
 Save the tailored YAML to:
 
 ```
-templates/<company>_<role>_cv.yaml
+templates/<username>_<company>_<role>_cv.yaml
 ```
 
-Where `<company>` is `company_name` from the analysis (or `unknown` if null) and `<role>` is `role_title`. Apply these transformations to both parts: lowercase all characters, replace spaces with underscores, remove all special characters except underscores.
+Where `<username>` comes from the selected master CV filename with the trailing `_cv` removed, `<company>` is `company_name` from the analysis (or `unknown` if null), and `<role>` is `role_title`. Apply these transformations to all parts: lowercase all characters, replace spaces with underscores, remove all special characters except underscores.
 
-Example: `templates/acme_corp_senior_software_engineer_cv.yaml`
+Example: `templates/david_alecrim_acme_corp_senior_software_engineer_cv.yaml`
 
 Report the saved file path when done. Do not render — the caller handles rendering.
 

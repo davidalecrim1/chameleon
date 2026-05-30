@@ -23,7 +23,7 @@ chameleon/
 │       └── update-cv-with-job-posting.md  # Subagent — resume editor (isolated context)
 ├── templates/                    # Master and tailored CV YAMLs
 │   ├── <name>_cv.yaml             # Master — source of truth, never mutated by tailor runs
-│   └── <company>_<role>_cv.yaml   # Tailored — one per job application
+│   └── <username>_<company>_<role>_cv.yaml   # Tailored — one per job application
 ├── output/              # RenderCV output — do not commit
 └── CLAUDE.md                     # This file
 ```
@@ -67,8 +67,8 @@ For Codex, keep the same two-agent split. When the user explicitly wants delegat
 3. **Spawn** `analyze-job-posting` subagent with the raw JD text
 4. **Receive** structured analysis output
 5. **Spawn** `update-cv-with-job-posting` subagent with analysis + resolved master YAML path
-6. Subagent saves `templates/<company>_<role>_cv.yaml` and reports the path
-7. **Render** via `make render FILE=templates/<company>_<role>_cv.yaml`
+6. Subagent saves `templates/<username>_<company>_<role>_cv.yaml` and reports the path
+7. **Render** via `make render FILE=templates/<username>_<company>_<role>_cv.yaml`
 8. **Report** the path to the generated PDF
 
 ## CV Initialization Workflow (`/init-cv`)
@@ -87,7 +87,7 @@ These rules are absolute and must never be violated:
 - **Never fabricate experience.** Only reword or reorder what already exists in the master YAML. Do not invent companies, roles, dates, metrics, or skills.
 - **Preserve all facts.** Company names, job titles, locations, and dates are immutable. Only highlight bullets may be rewritten.
 - **Match the JD's language.** If the JD says "CI/CD pipelines" and the master says "continuous integration", use the JD's phrasing.
-- **Never edit the master YAML during a tailor run.** Always write a new file to `templates/` with the company and role in the filename.
+- **Never edit the master YAML during a tailor run.** Always write a new file to `templates/` with the `<username>_<company>_<role>_cv.yaml` naming convention, where `<username>` comes from the selected master CV filename without the trailing `_cv`.
 - **Length constraint.** Keep tailored resumes to 2 pages maximum, ideally. Remove lower-impact bullets before adding new ones if length is at risk.
 - **Validate before reporting.** The `/chameleon` skill runs `make render` on the tailored YAML after the agent saves it, and confirms it succeeds before reporting the PDF path to the user.
 
@@ -117,7 +117,7 @@ Runs in an isolated context. Responsible solely for extracting structured signal
 
 ### `update-cv-with-job-posting`
 
-Runs in an isolated context. Receives job analysis + master YAML path. Reads master YAML, writes tailored YAML to `templates/<company>_<role>_cv.yaml`, and reports the saved path. Does not render — the `/chameleon` skill handles rendering.
+Runs in an isolated context. Receives job analysis + master YAML path. Reads master YAML, writes tailored YAML to `templates/<username>_<company>_<role>_cv.yaml`, and reports the saved path. Does not render — the `/chameleon` skill handles rendering.
 
 Only edits: `summary`, `experience` highlights, clearing `settings.bold_keywords` when present, and `skills` section order.
 Never touches: `projects`, `education`, `languages`, certifications, publications, or any other fixed sections.
@@ -129,6 +129,7 @@ Summary guidance for tailor runs:
 - The first sentence should make it easy for a recruiter or hiring manager to understand why this candidate is worth a closer look.
 - Connect expertise to customer, business, or real-world impact when the master CV supports that framing.
 - If the master CV and JD support it, surface grounded motivation for the problem space, product, or mission instead of writing a purely technology-led summary.
+- Keep the summary to at most 2 paragraphs.
 
 ## Reference Documentation
 
