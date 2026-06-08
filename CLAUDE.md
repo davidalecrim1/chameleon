@@ -18,6 +18,8 @@ chameleon/
 │   │   │   └── SKILL.md          # Command skill — /cover-letter entrypoint
 │   │   ├── init-cv/
 │   │   │   └── SKILL.md          # Command skill — /init-cv entrypoint
+│   │   ├── question/
+│   │   │   └── SKILL.md          # Command skill — /question entrypoint
 │   │   └── render-cv/
 │   │       └── SKILL.md          # Command skill — /render-cv entrypoint
 │   └── agents/
@@ -36,7 +38,7 @@ chameleon/
   - Install: `make install-tools`
   - Render: `make render FILE=<file>.yaml`
   - Output: PDF, Markdown, HTML, PNG in `output/`
-- **Claude Code skills** — `/chameleon`, `/cover-letter`, and `/init-cv` are user-invocable command skills
+- **Claude Code skills** — `/chameleon`, `/cover-letter`, `/question`, and `/init-cv` are user-invocable command skills
 - **Subagents** — `analyze-job-posting` and `update-cv-with-job-posting` run in isolated contexts
 
 ## Skills vs Agents
@@ -46,7 +48,7 @@ chameleon/
 | **Command skill** | Instructions in `SKILL.md`, optionally with `disable-model-invocation: true` | Usually when user types `/skill-name` | Shared with main conversation |
 | **Subagent** | Isolated Claude instance with own system prompt | Spawned by the skill | Own isolated context — returns summary to main |
 
-**`/chameleon`, `/cover-letter`, and `/init-cv`** are command skills: user-triggered, not auto-invoked. They orchestrate the workflow and delegate work to subagents when needed.
+**`/chameleon`, `/cover-letter`, `/question`, and `/init-cv`** are command skills: user-triggered, not auto-invoked. They orchestrate the workflow and delegate work to subagents when needed.
 
 **`analyze-job-posting` and `update-cv-with-job-posting`** are subagents: spawned by the skill, run in isolation, return a summary. Isolation keeps large intermediate context (raw HTML, full YAML processing) out of the main thread.
 
@@ -91,7 +93,20 @@ Used when the user wants a short, tailored cover letter from a job posting and a
 3. Extract the employer name, role title, product names, mission cues, and strongest matching resume evidence
 4. Write a concise first-person letter grounded in the actual resume
 5. Keep the requested length exactly; default to two paragraphs
-6. Preserve user-specific greeting and sign-off rules when given
+6. Run a final `humanizer` pass while preserving the exact paragraph count and greeting/sign-off rules
+7. Preserve user-specific greeting and sign-off rules when given
+
+## Question Workflow (`/question`)
+
+Used when the user wants a short, tailored answer to an application or screening question.
+
+1. Accept the question text and optional job URL or pasted job description, or reuse clear role context already present in the thread
+2. Resolve the source resume from either `--resume`, `--cv`, clear CV context already established in the thread, or a clearly relevant tailored YAML from the current thread
+3. Extract the employer name, role title, what the question is really testing, and the strongest matching resume evidence
+4. Write a concise first-person answer grounded in the actual resume
+5. Keep the requested length exactly; default to one paragraph
+6. Run a final `humanizer` pass while preserving the exact paragraph count and any request for simple wording or light natural English imperfections
+7. Use simple terms and allow light, natural English imperfections when the user wants a more human or casual answer
 
 ## Editing Rules (apply to all agents)
 

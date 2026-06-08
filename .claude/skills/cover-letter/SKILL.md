@@ -93,7 +93,17 @@ For the default 2-paragraph format:
 - Paragraph 1: why I fit this role, using the strongest relevant experience and one concrete result when possible.
 - Paragraph 2: why I want this company, product, or problem space, and what I would bring.
 
-### Step 5 — Report only the final letter
+### Step 5 — Humanize the draft
+
+Run the draft through the `humanizer` skill before returning it.
+
+- Keep the exact requested structure after the humanizer pass.
+- If the user asked for `one paragraph`, the final result must still be one paragraph.
+- If the user asked for `two paragraphs`, the final result must still be two paragraphs.
+- Preserve the exact greeting and sign-off format after the humanizer pass.
+- Keep the language simple, direct, and grounded in the resume and JD.
+
+### Step 6 — Report only the final letter
 
 Return only the final cover letter text. Do not include analysis, notes, bullets, or alternative drafts unless the user explicitly asks for them.
 
