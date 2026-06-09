@@ -63,26 +63,22 @@ For Codex, keep the same two-agent split. When the user explicitly wants delegat
 
 ## Skill Workflow (`/chameleon`)
 
-1. **Fetch** the job posting URL or read pasted text
-2. **Resolve** which master CV to use from `templates/`:
-   - If `--cv` argument provided, use `templates/<name>_cv.yaml`
-   - If only one YAML exists in `templates/`, use it automatically
-   - If multiple YAMLs exist in `templates/` and none specified, list them and ask the user to choose
-3. **Spawn** `analyze-job-posting` subagent with the raw JD text
-4. **Receive** structured analysis output
-5. **Spawn** `update-cv-with-job-posting` subagent with analysis + resolved master YAML path
-6. Subagent saves `templates/<username>_<company>_<role>_cv.yaml` and reports the path
-7. **Render** via `make render FILE=templates/<username>_<company>_<role>_cv.yaml`
-8. **Report** the path to the generated PDF
+1. Fetch the job posting URL or read pasted text
+2. Resolve the source CV
+3. Run `analyze-job-posting` on the raw JD text
+4. Run `update-cv-with-job-posting` with the analysis plus the resolved CV path
+5. Render the tailored YAML and report the generated PDF
+6. Follow the argument handling, file naming, summary constraints, and error rules in `.claude/skills/chameleon/SKILL.md`
 
 ## CV Initialization Workflow (`/init-cv`)
 
 Used when setting up for the first time or when the user provides an updated source resume.
 
 1. Accept a PDF or YAML as input
-2. If PDF: parse the content and produce a valid `master_cv.yaml` conforming to RenderCV schema
-3. If YAML: validate the structure against RenderCV entry types and save as `master_cv.yaml`
-4. Confirm the file renders cleanly: `rendercv render master_cv.yaml`
+2. Parse PDF input into RenderCV YAML or validate YAML input
+3. Save the resulting master CV under `templates/`
+4. Render it and confirm the output succeeds
+5. Follow the overwrite, schema, layout, and validation rules in `.claude/skills/init-cv/SKILL.md`
 
 ## Cover Letter Workflow (`/cover-letter`)
 
@@ -92,21 +88,19 @@ Used when the user wants a short, tailored cover letter from a job posting and a
 2. Resolve the source resume from either `--resume`, `--cv`, or a clearly relevant tailored YAML from the current thread
 3. Extract the employer name, role title, product names, mission cues, and strongest matching resume evidence
 4. Write a concise first-person letter grounded in the actual resume
-5. Keep the requested length exactly; default to two paragraphs
-6. Run a final `humanizer` pass while preserving the exact paragraph count and greeting/sign-off rules
-7. Preserve user-specific greeting and sign-off rules when given
+5. Follow the drafting, structure, and greeting/sign-off rules in `.claude/skills/cover-letter/SKILL.md`
+6. Run a final `humanizer` pass while preserving the exact requested structure
 
 ## Question Workflow (`/question`)
 
 Used when the user wants a short, tailored answer to an application or screening question.
 
 1. Accept the question text and optional job URL or pasted job description, or reuse clear role context already present in the thread
-2. Resolve the source resume from either `--resume`, `--cv`, clear CV context already established in the thread, or a clearly relevant tailored YAML from the current thread
-3. Extract the employer name, role title, what the question is really testing, and the strongest matching resume evidence
+2. Resolve the strongest available source resume
+3. Extract the role signal plus the best matching resume evidence
 4. Write a concise first-person answer grounded in the actual resume
-5. Keep the requested length exactly; default to one paragraph
-6. Run a final `humanizer` pass while preserving the exact paragraph count and any request for simple wording or light natural English imperfections
-7. Use simple terms and allow light, natural English imperfections when the user wants a more human or casual answer
+5. Run a final `humanizer` pass while preserving the exact requested structure
+6. Follow the length, tone, and wording rules in `.claude/skills/question/SKILL.md`
 
 ## Editing Rules (apply to all agents)
 

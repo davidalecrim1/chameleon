@@ -69,6 +69,7 @@ David
 - Use simple, direct language.
 - Keep it concise.
 - Make it eye catching by leading with the strongest fit for the role, not with a stack list.
+- Avoid generic throat-clearing openings like `I'm a strong fit for this role` or `I believe I am a good match`. Start with concrete experience, scope, or impact instead.
 - Use assertive framing when the resume supports it. Sell strongly without inventing.
 - Ground every claim in the selected resume or the job description.
 - Use the company name correctly. If the posting mentions a product or protocol, do not confuse it with the employer.
@@ -91,6 +92,7 @@ The letter must feel human-written.
 For the default 2-paragraph format:
 
 - Paragraph 1: why I fit this role, using the strongest relevant experience and one concrete result when possible.
+- Paragraph 1 should open with concrete work context or impact, not a generic claim that I fit the role.
 - Paragraph 2: why I want this company, product, or problem space, and what I would bring.
 
 ### Step 5 — Humanize the draft
