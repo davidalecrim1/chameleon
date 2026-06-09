@@ -65,6 +65,7 @@ Wait for the agent to confirm it has saved the tailored YAML to `templates/`. Th
 The tailored summary must not read like a raw technology dump.
 
 - Lead with why the candidate should be shortlisted for the role, not with a long stack list.
+- Write in standard resume style with implied first person: no `I`, `he`, `him`, `she`, `her`, `they`, or similar pronouns in the summary.
 - Show relevant expertise, but connect it to customer, business, or real-world impact whenever the master CV supports that framing.
 - If the master CV and JD support it, surface genuine motivation for the problem space, product, or mission in concrete language rather than generic enthusiasm.
 - Keep the summary to at most 2 paragraphs.

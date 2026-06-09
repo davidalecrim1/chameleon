@@ -151,6 +151,7 @@ Summary guidance for tailor runs:
 - The first sentence should make it easy for a recruiter or hiring manager to understand why this candidate is worth a closer look.
 - Connect expertise to customer, business, or real-world impact when the master CV supports that framing.
 - If the master CV and JD support it, surface grounded motivation for the problem space, product, or mission instead of writing a purely technology-led summary.
+- Write resume summaries in implied first person only. Do not use `I`, `he`, `him`, `she`, `her`, `they`, or similar pronouns in summary bullets.
 - Keep the summary to at most 2 paragraphs.
 
 ## Reference Documentation

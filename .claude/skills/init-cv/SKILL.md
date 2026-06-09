@@ -108,6 +108,7 @@ Follow RenderCV entry type rules:
 - Use `name` field for project entries (NormalEntry)
 - Use `label` field for one-line entries (OneLineEntry)
 - Do not mix entry types within a section
+- Write `cv.sections.summary` in standard resume style with implied first person: no `I`, `he`, `him`, `she`, `her`, `they`, or similar pronouns.
 
 Follow layout rules (see Layout Rules section below).
 
@@ -117,6 +118,7 @@ Read the file and validate it conforms to RenderCV structure. Check that:
 - `cv.name` is present
 - Each section uses a consistent entry type
 - Dates follow YYYY-MM or YYYY format
+- If `cv.sections.summary` exists, flag first-person or third-person pronouns in summary bullets and normalize them to standard resume style before saving.
 - If `settings.bold_keywords` exists, remove it or set it to an empty list before saving. This repo does not use global keyword auto-bolding because it affects fixed sections like certifications.
 
 Report any structural issues found. If the YAML is valid, proceed to Step 3.
@@ -202,6 +204,10 @@ These rules prevent common rendering issues in the classic theme and must be app
 - Keep each `details` value under ~80 characters. Long comma-separated lists wrap badly.
 - Split into multiple `label` entries rather than cramming everything into one line.
 - Avoid parenthetical expansions like `AWS (EKS, RDS, S3, ...)` inline — list the services separately if needed.
+
+**Summary entries:**
+- Keep summary bullets in resume style: concise noun-led or verb-led statements with no personal pronouns.
+- Do not write the summary in first person (`I ...`) or third person (`he ...`, `she ...`, `they ...`).
 
 **Certifications:**
 - Use one `OneLineEntry` per certification. `label` is the full cert name; `details` is the date (required by RenderCV):
