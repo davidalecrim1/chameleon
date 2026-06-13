@@ -6,32 +6,6 @@ Chameleon is a Claude Code project that tailors a master resume YAML to a specif
 
 Given a job posting URL or pasted job description, produce a tailored, ATS-optimized PDF resume derived from a master YAML file. Each tailored resume is saved as a separate YAML under `templates/` alongside the master.
 
-## Directory Structure
-
-```
-chameleon/
-├── .claude/
-│   ├── skills/
-│   │   ├── chameleon/
-│   │   │   └── SKILL.md          # Command skill — /chameleon entrypoint
-│   │   ├── cover-letter/
-│   │   │   └── SKILL.md          # Command skill — /cover-letter entrypoint
-│   │   ├── init-cv/
-│   │   │   └── SKILL.md          # Command skill — /init-cv entrypoint
-│   │   ├── question/
-│   │   │   └── SKILL.md          # Command skill — /question entrypoint
-│   │   └── render-cv/
-│   │       └── SKILL.md          # Command skill — /render-cv entrypoint
-│   └── agents/
-│       ├── analyze-job-posting.md         # Subagent — job analysis (isolated context)
-│       └── update-cv-with-job-posting.md  # Subagent — resume editor (isolated context)
-├── templates/                    # Master and tailored CV YAMLs
-│   ├── <name>_cv.yaml             # Master — source of truth, never mutated by tailor runs
-│   └── <username>_<company>_<role>_cv.yaml   # Tailored — one per job application
-├── output/              # RenderCV output — do not commit
-└── CLAUDE.md                     # This file
-```
-
 ## Technology Stack
 
 - **RenderCV** — YAML → PDF renderer (Typst backend, no LaTeX required)
@@ -82,25 +56,28 @@ Used when setting up for the first time or when the user provides an updated sou
 
 ## Cover Letter Workflow (`/cover-letter`)
 
-Used when the user wants a short, tailored cover letter from a job posting and an existing resume YAML.
+Used when the user wants a concise, first-person cover letter tailored to a specific role from a job URL or pasted job description and a real resume YAML, especially when length, tone, greeting, or sign-off constraints matter.
 
 1. Accept a job URL or pasted job description
-2. Resolve the source resume from either `--resume`, `--cv`, or a clearly relevant tailored YAML from the current thread
-3. Extract the employer name, role title, product names, mission cues, and strongest matching resume evidence
-4. Write a concise first-person letter grounded in the actual resume
-5. Follow the drafting, structure, and greeting/sign-off rules in `.claude/skills/cover-letter/SKILL.md`
-6. Run a final `humanizer` pass while preserving the exact requested structure
+2. Resolve the source resume from `--resume`, `--cv`, or a clearly relevant tailored YAML from the current thread; if multiple reasonable YAMLs exist and no source is clear, ask the user which one to use instead of guessing
+3. Extract the employer name, role title, product or protocol names, mission or problem-space signals, and the strongest matching resume evidence
+4. Default to exactly 2 paragraphs, start with `Hey,`, end with `Regards,` and `David`, and write in simple, direct first-person language grounded in the selected resume and job description
+5. Lead with the strongest fit and one concrete impact detail when possible; do not turn the letter into a stack list, ATS keyword dump, or generic enthusiasm
+6. Run a final `humanizer` pass while preserving the exact requested structure, greeting, and sign-off
+7. Return only the final cover letter text
 
 ## Question Workflow (`/question`)
 
-Used when the user wants a short, tailored answer to an application or screening question.
+Used when the user wants a concise, first-person answer to an application or screening question, grounded in a real resume YAML and specific role context already provided in the thread or via a fresh job description.
 
-1. Accept the question text and optional job URL or pasted job description, or reuse clear role context already present in the thread
-2. Resolve the strongest available source resume
-3. Extract the role signal plus the best matching resume evidence
-4. Write a concise first-person answer grounded in the actual resume
-5. Run a final `humanizer` pass while preserving the exact requested structure
-6. Follow the length, tone, and wording rules in `.claude/skills/question/SKILL.md`
+1. Treat the main argument as the exact question to answer
+2. Accept an optional job URL or pasted job description, or reuse clear role, JD, or tailored-YAML context already present in the thread when it is relevant to the same application
+3. Resolve the strongest available source resume from `--resume`, `--cv`, or the current thread; if multiple reasonable YAMLs exist and no source is clear, ask the user which one to use instead of guessing
+4. Extract what the question is really testing, the strongest role-specific angle, and the best matching resume evidence
+5. Default to exactly 1 paragraph, answer the question directly in the first sentence, and write in simple, direct first-person language grounded in the selected resume, thread context, and job description
+6. Use assertive framing when supported, prefer one strong impact detail over a stack list, and avoid turning the answer into a cover letter, resume summary, or ATS keyword dump
+7. Run a final `humanizer` pass while preserving the exact requested structure and any requested simplicity or casualness
+8. Return only the final answer text
 
 ## Editing Rules (apply to all agents)
 
