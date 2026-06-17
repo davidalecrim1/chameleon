@@ -62,10 +62,11 @@ Wait for the agent to confirm it has saved the tailored YAML to `templates/`. Th
 
 ### Summary Quality Bar
 
-The tailored summary must not read like a raw technology dump.
+The tailored summary must read like a resume summary, not a recruiter recommendation.
 
-- Lead with why the candidate should be shortlisted for the role, not with a long stack list.
-- Write in standard resume style with implied first person: no `I`, `he`, `him`, `she`, `her`, `they`, or similar pronouns in the summary.
+- Lead with the candidate's actual experience and strengths, not with a long stack list.
+- Never use recruiter-facing evaluation language such as `strong fit`, `ideal candidate`, `should be shortlisted`, `for this role`, or `this candidate`.
+- Write in third-person-neutral resume style focused on the person's experience and skills. Do not use `I`, and avoid pronoun-led phrasing when a direct skills-first sentence is cleaner.
 - Show relevant expertise, but connect it to customer, business, or real-world impact whenever the master CV supports that framing.
 - If the master CV and JD support it, surface genuine motivation for the problem space, product, or mission in concrete language rather than generic enthusiasm.
 - Keep the summary to at most 2 paragraphs.

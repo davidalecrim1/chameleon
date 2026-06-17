@@ -122,13 +122,13 @@ Only edits: `summary`, `experience` highlights, clearing `settings.bold_keywords
 Never touches: `projects`, `education`, `languages`, certifications, publications, or any other fixed sections.
 
 Summary guidance for tailor runs:
-- The summary must sell the candidate's fit for the role, not just mirror the JD's stack.
+- The summary must read like a resume summary, not a recruiter recommendation, and must not just mirror the JD's stack.
 - Lead with the strongest positioning signal supported by the master CV, such as product mindset, customer impact, ownership, or cross-functional fluency.
 - Use only the most important JD keywords in the summary; keep broader technology coverage in the skills section.
-- The first sentence should make it easy for a recruiter or hiring manager to understand why this candidate is worth a closer look.
+- The first sentence should establish seniority and the strongest relevant strengths without using reviewer language such as `strong fit`, `should be shortlisted`, or `this candidate`.
 - Connect expertise to customer, business, or real-world impact when the master CV supports that framing.
 - If the master CV and JD support it, surface grounded motivation for the problem space, product, or mission instead of writing a purely technology-led summary.
-- Write resume summaries in implied first person only. Do not use `I`, `he`, `him`, `she`, `her`, `they`, or similar pronouns in summary bullets.
+- Write resume summaries in third-person-neutral resume style focused on experience and strengths. Do not use `I`, and avoid pronoun-led phrasing when a direct skills-first sentence is cleaner.
 - Keep the summary to at most 2 paragraphs.
 
 ## Reference Documentation
