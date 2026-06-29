@@ -69,6 +69,8 @@ The tailored summary must read like a resume summary, not a recruiter recommenda
 - Write in third-person-neutral resume style focused on the person's experience and skills. Do not use `I`, and avoid pronoun-led phrasing when a direct skills-first sentence is cleaner.
 - Show relevant expertise, but connect it to customer, business, or real-world impact whenever the master CV supports that framing.
 - If the master CV and JD support it, surface genuine motivation for the problem space, product, or mission in concrete language rather than generic enthusiasm.
+- Keep the first paragraph focused on technical fit and strongest role-relevant strengths.
+- Use the second paragraph for motivation and broader impact, and include at least one concrete metric grounded in the master CV when one is available.
 - Keep the summary to at most 2 paragraphs.
 - Keep the broader stack coverage in the skills section instead of forcing it into the summary.
 

@@ -128,6 +128,8 @@ Summary guidance for tailor runs:
 - The first sentence should establish seniority and the strongest relevant strengths without using reviewer language such as `strong fit`, `should be shortlisted`, or `this candidate`.
 - Connect expertise to customer, business, or real-world impact when the master CV supports that framing.
 - If the master CV and JD support it, surface grounded motivation for the problem space, product, or mission instead of writing a purely technology-led summary.
+- Keep the first paragraph focused on technical positioning and strongest relevant strengths.
+- Use the second paragraph for motivation plus customer, business, or world impact, and anchor it with at least one concrete metric pulled from the master CV when one is available.
 - Write resume summaries in third-person-neutral resume style focused on experience and strengths. Do not use `I`, and avoid pronoun-led phrasing when a direct skills-first sentence is cleaner.
 - Keep the summary to at most 2 paragraphs.
 
