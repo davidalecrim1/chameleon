@@ -4,7 +4,7 @@ Chameleon is an AI project that works with [Claude Code](https://claude.ai/claud
 
 It is designed for one job: start from a truthful master CV, adapt the wording to match a target job description, and produce a ready-to-submit PDF without inventing experience.
 
-## What It Does
+## What It Does 🛠️
 
 - Keeps your master CV unchanged
 - Saves a separate job-analysis JSON artifact for each application
@@ -14,7 +14,7 @@ It is designed for one job: start from a truthful master CV, adapt the wording t
 - Scores a tailored CV against a saved job analysis artifact
 - Works with Claude Code, Codex, and OpenCode
 
-## Constraints
+## Constraints 🔒
 
 - No fabricated experience, skills, metrics, titles, or dates
 - Only rewording, reordering, and emphasis changes are allowed
@@ -108,23 +108,7 @@ The `/chameleon` flow will:
 5. Render it to PDF via `make render`
 6. Report the analysis ID, saved JSON path, tailored YAML path, and generated PDF path
 
-### 4. Tailor from a saved analysis
-
-Use the saved analysis artifact explicitly:
-
-```bash
-/tailor-cv --analysis a7c19f2d --cv david_alecrim
-```
-
-This flow will:
-
-1. Resolve the saved analysis from `output/job_analyses/`
-2. Rewrite the summary, reorder experience highlights, reorder skills, and clear `settings.bold_keywords` if present
-3. Save a tailored YAML to `templates/<username>_<company>_<role>_cv.yaml`
-4. Render it to PDF via `make render`
-5. Report the YAML and PDF paths
-
-### 5. Score a tailored CV against a saved analysis
+### 4. Score a tailored CV against a saved analysis
 
 ```bash
 /score-cv --analysis a7c19f2d --cv templates/david_alecrim_tempo_rust_engineer_cv.yaml
@@ -136,20 +120,6 @@ This flow will:
 2. Extract structured evidence from the tailored YAML
 3. Score the CV against the saved analysis
 4. Report the final score, breakdown, and missing requirements
-
-### 6. Re-render after a manual edit
-
-To render any existing YAML again:
-
-```bash
-/render-cv templates/acme_corp_senior_engineer_cv.yaml
-```
-
-Or run it without arguments to pick from a list:
-
-```bash
-/render-cv
-```
 
 ## Local Files
 
