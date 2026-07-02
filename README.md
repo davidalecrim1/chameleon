@@ -1,16 +1,18 @@
 # Chameleon — Resume Tailor
 
-Chameleon is a [Claude Code](https://claude.ai/claude-code) and [Codex](https://openai.com/codex/) project that tailors a master resume YAML to a specific job posting and renders it to PDF using [RenderCV](https://docs.rendercv.com/).
+Chameleon is an AI project that works with [Claude Code](https://claude.ai/claude-code), [Codex](https://openai.com/codex/), and OpenCode. It tailors a master resume YAML to a target job description, while saving the intermediate job analysis locally for later reuse.
 
 It is designed for one job: start from a truthful master CV, adapt the wording to match a target job description, and produce a ready-to-submit PDF without inventing experience.
 
 ## What It Does
 
 - Keeps your master CV unchanged
+- Saves a separate job-analysis JSON artifact for each application
 - Creates a separate tailored YAML for each application
 - Rewrites only allowed parts of the resume to match the job description's language
 - Renders the tailored YAML to PDF with RenderCV
-- Works in both Claude Code and Codex
+- Scores a tailored CV against a saved job analysis artifact
+- Works with Claude Code, Codex, and OpenCode
 
 ## Constraints
 
@@ -21,7 +23,7 @@ It is designed for one job: start from a truthful master CV, adapt the wording t
 ## Prerequisites
 
 - Python 3.10+
-- [Claude Code](https://claude.ai/claude-code) or [Codex](https://openai.com/codex/)
+- [Claude Code](https://claude.ai/claude-code), [Codex](https://openai.com/codex/), or OpenCode
 
 ## Installation
 
@@ -35,12 +37,14 @@ This creates a `.venv` and installs `rendercv` inside it.
 
 ## Quick Start
 
-### 1. Start Claude Code or Codex
+### 1. Start Claude Code, Codex, or OpenCode
 
 All project commands are exposed as slash commands:
 
 - `/init-cv`
 - `/chameleon`
+- `/tailor-cv`
+- `/score-cv`
 - `/render-cv`
 
 Claude Code:
@@ -54,17 +58,22 @@ Codex:
 codex
 ```
 
+OpenCode:
+```bash
+opencode
+```
+
 ### 2. Import your master CV once
 
 If your source resume is a PDF:
 
-```
+```bash
 /init-cv ~/Downloads/david-alecrim.pdf
 ```
 
 If you already have a RenderCV-compatible YAML:
 
-```
+```bash
 /init-cv ~/Documents/david-alecrim.yaml
 ```
 
@@ -74,63 +83,93 @@ This creates a RenderCV-compatible master file under `templates/` and runs a ren
 
 Pass either a job URL:
 
-```
-/chameleon https://jobs.example.com/senior-engineer-123
+```bash
+/chameleon --cv david_alecrim https://jobs.example.com/senior-engineer-123
 ```
 
 Or pasted job description text:
 
-```
+```bash
 /chameleon "Senior Software Engineer at Acme Corp. We're looking for..."
 ```
 
 If you have more than one master CV in `templates/`, specify which one to use with `--cv <name>`, where `<name>` is the filename stem before `_cv.yaml`:
 
-```
-/chameleon --cv john_doe https://jobs.example.com/senior-engineer-123
+```bash
+/chameleon --cv david_alecrim https://jobs.example.com/senior-engineer-123
 ```
 
-This resolves to `templates/john_doe_cv.yaml`.
-
-The tailoring flow will:
+The `/chameleon` flow will:
 
 1. Fetch and analyze the job description
-2. Rewrite the summary, reorder experience highlights, reorder skills, and clear `settings.bold_keywords` if present
-3. Save a tailored YAML to `templates/<company>_<role>_cv.yaml`
-4. Render it to PDF via `make render`
-5. Report the path to the generated PDF
+2. Save a JSON artifact under `output/job_analyses/<analysis_id>__<company>__<role>.json`
+3. Rewrite the summary, reorder experience highlights, reorder skills, and clear `settings.bold_keywords` if present
+4. Save a tailored YAML to `templates/<username>_<company>_<role>_cv.yaml`
+5. Render it to PDF via `make render`
+6. Report the analysis ID, saved JSON path, tailored YAML path, and generated PDF path
 
-### 4. Re-render after a manual edit
+### 4. Tailor from a saved analysis
+
+Use the saved analysis artifact explicitly:
+
+```bash
+/tailor-cv --analysis a7c19f2d --cv david_alecrim
+```
+
+This flow will:
+
+1. Resolve the saved analysis from `output/job_analyses/`
+2. Rewrite the summary, reorder experience highlights, reorder skills, and clear `settings.bold_keywords` if present
+3. Save a tailored YAML to `templates/<username>_<company>_<role>_cv.yaml`
+4. Render it to PDF via `make render`
+5. Report the YAML and PDF paths
+
+### 5. Score a tailored CV against a saved analysis
+
+```bash
+/score-cv --analysis a7c19f2d --cv templates/david_alecrim_tempo_rust_engineer_cv.yaml
+```
+
+This flow will:
+
+1. Resolve the saved analysis from `output/job_analyses/`
+2. Extract structured evidence from the tailored YAML
+3. Score the CV against the saved analysis
+4. Report the final score, breakdown, and missing requirements
+
+### 6. Re-render after a manual edit
 
 To render any existing YAML again:
 
-```
+```bash
 /render-cv templates/acme_corp_senior_engineer_cv.yaml
 ```
 
 Or run it without arguments to pick from a list:
 
-```
+```bash
 /render-cv
 ```
 
-## How Files Are Organized
+## Local Files
 
-- `templates/*_cv.yaml`: master and tailored CV YAML files
-- `output/`: rendered PDF, HTML, Markdown, and image output
-- `.claude/agents/`: shared agent prompts used by the workflow
-- `.claude/skills/`: shared slash-command skill definitions
+Chameleon stores its working files locally in two main folders:
 
-## Notes
+- `templates/`: local CV YAML files
+- `output/`: local generated artifacts
+
+Within those folders:
 
 - `templates/<name>_cv.yaml` is treated as a master CV when you pass `--cv <name>`
-- Tailored files are written as `templates/<company>_<role>_cv.yaml`
+- Tailored CVs are written as `templates/<username>_<company>_<role>_cv.yaml`
+- Saved job analyses are written as `output/job_analyses/<analysis_id>__<company>__<role>.json`
+- Rendered PDFs, HTML, Markdown, Typst, and image output land in `output/`
+- `output/` is not committed
+
+Additional local file rules:
+
 - Chameleon does not use RenderCV `settings.bold_keywords`; keep it absent or empty so certifications and other fixed sections are not auto-bolded
 - If RenderCV is missing, run `make install-tools`
-
-## Output
-
-Rendered PDFs land in `output/`. This directory is not committed.
 
 ### Example
 

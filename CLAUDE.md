@@ -1,6 +1,6 @@
 # Chameleon — Resume Tailor
 
-Chameleon is a Claude Code project that tailors a master resume YAML to a specific job posting, then renders it to PDF using RenderCV. It uses two internal agents to analyze the job description and apply changes to the YAML.
+Chameleon is an AI project that works with Claude Code, Codex, and OpenCode. It tailors a master resume YAML to a specific job posting, while persisting the intermediate job analysis locally for later reuse. It uses internal agents to analyze the job description, apply changes to YAML, and score a final CV.
 
 ## Project Goal
 
@@ -12,8 +12,8 @@ Given a job posting URL or pasted job description, produce a tailored, ATS-optim
   - Install: `make install-tools`
   - Render: `make render FILE=<file>.yaml`
   - Output: PDF, Markdown, HTML, PNG in `output/`
-- **Claude Code skills** — `/chameleon`, `/cover-letter`, `/question`, and `/init-cv` are user-invocable command skills
-- **Subagents** — `analyze-job-posting` and `update-cv-with-job-posting` run in isolated contexts
+- **AI assistant skills** — `/chameleon`, `/tailor-cv`, `/score-cv`, `/cover-letter`, `/question`, and `/init-cv` are user-invocable command skills
+- **Subagents** — `analyze-job-posting`, `update-cv-with-job-posting`, and `score-cv-match` run in isolated contexts
 
 ## Skills vs Agents
 
@@ -22,9 +22,9 @@ Given a job posting URL or pasted job description, produce a tailored, ATS-optim
 | **Command skill** | Instructions in `SKILL.md`, optionally with `disable-model-invocation: true` | Usually when user types `/skill-name` | Shared with main conversation |
 | **Subagent** | Isolated Claude instance with own system prompt | Spawned by the skill | Own isolated context — returns summary to main |
 
-**`/chameleon`, `/cover-letter`, `/question`, and `/init-cv`** are command skills: user-triggered, not auto-invoked. They orchestrate the workflow and delegate work to subagents when needed.
+**`/chameleon`, `/tailor-cv`, `/score-cv`, `/cover-letter`, `/question`, and `/init-cv`** are command skills: user-triggered, not auto-invoked. They orchestrate the workflow and delegate work to subagents when needed.
 
-**`analyze-job-posting` and `update-cv-with-job-posting`** are subagents: spawned by the skill, run in isolation, return a summary. Isolation keeps large intermediate context (raw HTML, full YAML processing) out of the main thread.
+**`analyze-job-posting`, `update-cv-with-job-posting`, and `score-cv-match`** are subagents: spawned by the skill, run in isolation, return structured output. Isolation keeps large intermediate context (raw HTML, full YAML processing, saved analysis JSON, extracted CV evidence) out of the main thread.
 
 ## Codex Delegation
 
@@ -32,17 +32,35 @@ For Codex, keep the same two-agent split. When the user explicitly wants delegat
 
 - Reuse `.claude/agents/analyze-job-posting.md` as the prompt boundary for the analysis subagent. It should receive only the raw JD text and return the structured analysis fields documented below.
 - Reuse `.claude/agents/update-cv-with-job-posting.md` as the prompt boundary for the editing subagent. It should receive only the structured analysis plus the resolved master YAML path.
+- Reuse `.claude/agents/score-cv-match.md` as the prompt boundary for the scoring subagent. It should receive only the saved analysis JSON, extracted CV evidence, and the fixed scoring rubric.
 - Do the orchestration, CV selection, rendering, and user-facing reporting in the main thread.
 - Do not delegate if the user is only asking questions about the repo or workflow. Delegate when performing an actual tailoring run and isolation helps control context size.
 
 ## Skill Workflow (`/chameleon`)
 
 1. Fetch the job posting URL or read pasted text
+2. Run `analyze-job-posting` on the raw JD text
+3. Save the analysis JSON to `output/job_analyses/<analysis_id>__<company_slug>__<role_slug>.json`
+4. Resolve the source CV
+5. Run `update-cv-with-job-posting` with the saved analysis plus the resolved CV path
+6. Render the tailored YAML and report the generated PDF together with the saved analysis path and analysis ID
+7. Follow the argument handling, file naming, storage, and error rules in `.claude/skills/chameleon/SKILL.md`
+
+## Tailor Workflow (`/tailor-cv`)
+
+1. Resolve the saved analysis artifact from `output/job_analyses/` by explicit path or analysis ID
 2. Resolve the source CV
-3. Run `analyze-job-posting` on the raw JD text
-4. Run `update-cv-with-job-posting` with the analysis plus the resolved CV path
-5. Render the tailored YAML and report the generated PDF
-6. Follow the argument handling, file naming, summary constraints, and error rules in `.claude/skills/chameleon/SKILL.md`
+3. Run `update-cv-with-job-posting` with the saved analysis plus the resolved CV path
+4. Render the tailored YAML and report the generated PDF
+5. Follow the argument handling and error rules in `.claude/skills/tailor-cv/SKILL.md`
+
+## Score Workflow (`/score-cv`)
+
+1. Resolve the saved analysis artifact from `output/job_analyses/` by explicit path or analysis ID
+2. Read the tailored CV YAML and extract structured evidence in the workflow context
+3. Run `score-cv-match` with the saved analysis, extracted CV evidence, and fixed rubric
+4. Report the final score, breakdown, and missing requirements
+5. Follow the argument handling and error rules in `.claude/skills/score-cv/SKILL.md`
 
 ## CV Initialization Workflow (`/init-cv`)
 
@@ -88,7 +106,8 @@ These rules are absolute and must never be violated:
 - **Match the JD's language.** If the JD says "CI/CD pipelines" and the master says "continuous integration", use the JD's phrasing.
 - **Never edit the master YAML during a tailor run.** Always write a new file to `templates/` with the `<username>_<company>_<role>_cv.yaml` naming convention, where `<username>` comes from the selected master CV filename without the trailing `_cv`.
 - **Length constraint.** Keep tailored resumes to 2 pages maximum, ideally. Remove lower-impact bullets before adding new ones if length is at risk.
-- **Validate before reporting.** The `/chameleon` skill runs `make render` on the tailored YAML after the agent saves it, and confirms it succeeds before reporting the PDF path to the user.
+- **Persist before reuse.** The `/chameleon` skill saves job analyses under `output/job_analyses/` as JSON before any later tailoring or scoring run can consume them.
+- **Validate before reporting.** The `/chameleon` and `/tailor-cv` skills run `make render` on the tailored YAML after the agent saves it, and confirm it succeeds before reporting the PDF path to the user.
 
 ## RenderCV YAML Rules
 
@@ -114,12 +133,18 @@ Runs in an isolated context. Responsible solely for extracting structured signal
 - `positioning_signals`, `summary_angle`
 - `seniority`, `role_title`, `company_name`
 
+Its output is persisted by the caller as a JSON artifact under `output/job_analyses/`.
+
 ### `update-cv-with-job-posting`
 
 Runs in an isolated context. Receives job analysis + master YAML path. Reads master YAML, writes tailored YAML to `templates/<username>_<company>_<role>_cv.yaml`, and reports the saved path. Does not render — the `/chameleon` skill handles rendering.
 
 Only edits: `summary`, `experience` highlights, clearing `settings.bold_keywords` when present, and `skills` section order.
 Never touches: `projects`, `education`, `languages`, certifications, publications, or any other fixed sections.
+
+### `score-cv-match`
+
+Runs in an isolated context. Receives a saved job analysis JSON artifact, extracted CV evidence, and a fixed scoring rubric. Returns a grounded `0-100` score with a category breakdown, matched evidence, and missing requirements. It does not read or write files.
 
 Summary guidance for tailor runs:
 - The summary must read like a resume summary, not a recruiter recommendation, and must not just mirror the JD's stack.

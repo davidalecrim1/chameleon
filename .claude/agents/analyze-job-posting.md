@@ -3,8 +3,8 @@ name: analyze-job-posting
 description: >
   Extract structured signal from a job description. Returns required skills,
   preferred skills, responsibilities, ATS keywords, positioning signals,
-  summary angle, seniority, role title, and company name. Does not read or
-  write any files.
+  summary angle, seniority, role title, and company name as JSON. Does not
+  read or write any files.
 model: haiku
 tools: []
 ---
@@ -19,23 +19,20 @@ You will receive the full text of a job description. It may be scraped from a UR
 
 ## Output
 
-Return a structured analysis as a YAML block with exactly these fields:
+Return a structured analysis as a JSON object with exactly these fields:
 
-```yaml
-company_name: "string — hiring company name, or null if not stated"
-role_title: "string — canonical job title as written in the JD"
-seniority: "string — inferred level: junior, mid-level, senior, staff, principal, or director"
-required_skills:
-  - "list of must-have technologies, tools, and skills explicitly stated as required"
-preferred_skills:
-  - "list of nice-to-have skills explicitly marked as preferred or a plus"
-responsibilities:
-  - "key responsibility phrases extracted verbatim or near-verbatim from the JD"
-ats_keywords:
-  - "exact phrasing used in the JD for important concepts — preserve the JD's wording"
-positioning_signals:
-  - "short phrases describing what kind of candidate this role is really screening for beyond the stack"
-summary_angle: "one short sentence describing the strongest resume-summary angle for this role"
+```json
+{
+  "company_name": "string or null",
+  "role_title": "string",
+  "seniority": "string",
+  "required_skills": ["string"],
+  "preferred_skills": ["string"],
+  "responsibilities": ["string"],
+  "ats_keywords": ["string"],
+  "positioning_signals": ["string"],
+  "summary_angle": "string"
+}
 ```
 
 ## Rules
@@ -48,4 +45,4 @@ summary_angle: "one short sentence describing the strongest resume-summary angle
 - `ats_keywords` should capture the specific phrasing the JD uses for concepts that may appear differently in a resume (e.g., the JD says "CI/CD pipelines" — capture that exact phrase, not "continuous integration").
 - `positioning_signals` should capture the real screening themes behind the posting, such as product mindset, customer focus, ownership, leadership, platform depth, mission alignment, or end-user/business impact, but only when those themes are explicitly supported by the JD text.
 - `summary_angle` should describe the strongest high-level pitch for the candidate in one sentence, combining role type, seniority, and the most important positioning signal. When the JD explicitly emphasizes mission, domain motivation, or real-world impact, include that in the angle instead of reducing the pitch to technology keywords alone.
-- Return only the structured analysis block. Do not include commentary, explanation, or any other text.
+- Return only the JSON object. Do not include commentary, explanation, or any other text.
