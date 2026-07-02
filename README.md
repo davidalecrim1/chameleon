@@ -134,14 +134,8 @@ Within those folders:
 - Tailored CVs are written as `templates/<username>_<company>_<role>_cv.yaml`
 - Saved job analyses are written as `output/job_analyses/<analysis_id>__<company>__<role>.json`
 - Rendered PDFs, HTML, Markdown, Typst, and image output land in `output/`
-- `output/` is not committed
 
-Additional local file rules:
-
-- Chameleon does not use RenderCV `settings.bold_keywords`; keep it absent or empty so certifications and other fixed sections are not auto-bolded
-- If RenderCV is missing, run `make install-tools`
-
-### Example
+### Example 🎯
 
 The following is the master template CV rendered to PDF:
 
